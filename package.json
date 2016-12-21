@@ -1,0 +1,27 @@
+{
+  "name": "trip-raptor",
+  "version": "1.0.0",
+  "description": "plan your voyage raptor-style",
+  "main": "src/server/server.js",
+  "scripts": {
+    "dev": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tropical-Raptor/trip-raptor.git"
+  },
+  "keywords": [
+    "trip",
+    "planner"
+  ],
+  "author": "Nimrod Grinvald, Eric Lau, Paul Suphankanok",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tropical-Raptor/trip-raptor/issues"
+  },
+  "homepage": "https://github.com/Tropical-Raptor/trip-raptor#readme",
+  "devDependencies": {
+    "webpack": "^1.14.0"
+  }
+}
