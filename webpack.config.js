@@ -1,7 +1,11 @@
+const path = require('path');
+
 module.exports = {
-  entry: './src/client/scripts/app.js',
+  entry: path.join(__dirname, '/src/client/scripts/app.js'),
   output: {
     filename: './dist/build/bundle.js',
+    path: path.join(__dirname, '/dist/build'),
+    publicPath: '/',
   },
   module: {
     loaders: [
@@ -10,7 +14,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015'],
+          presets: ['react', 'env'],
         },
       },
     ],
