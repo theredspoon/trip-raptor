@@ -1,5 +1,3 @@
-import { Hello, World } from './components/hello';
-
-document.write('whatup planet!');
+import { Home } from './components/home';
 
 console.log('app is loaded');

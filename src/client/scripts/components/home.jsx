@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class Hello extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
 
@@ -12,9 +12,10 @@ class Hello extends Component {
   render() {
     return (
       <div>
+        <h2> Where are you going ?</h2>
         <form onSubmit={this.handleSubmit}>
           <input onChange={this.handleChange} value={this.state.text} />
-          <button />
+          <button>Search</button>
         </form>
       </div>
     );
@@ -32,4 +33,4 @@ class Hello extends Component {
 }
 
 
-ReactDOM.render(<Hello />, document.getElementById('hello'));
+ReactDOM.render(<Home />, document.getElementById('hello'));
