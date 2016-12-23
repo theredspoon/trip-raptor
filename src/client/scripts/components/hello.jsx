@@ -1,17 +1,35 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
-class Hello extends React.Component {
+class Hello extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { text: '' };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
   render() {
-    return <h1>Hello</h1>;
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <input onChange={this.handleChange} value={this.state.text} />
+          <button />
+        </form>
+      </div>
+    );
+  }
+
+  handleChange(e) {
+    this.setState({ text: e.target.value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log(this.state.text);
+    this.setState({ text: '' });
   }
 }
 
-class World extends React.Component {
-  render() {
-    return <h2>World</h2>;
-  }
-}
 
 ReactDOM.render(<Hello />, document.getElementById('hello'));
-ReactDOM.render(<World />, document.getElementById('world'));
