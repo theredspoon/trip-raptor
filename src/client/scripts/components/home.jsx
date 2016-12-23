@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
 
 class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { text: '' };
+    this.state = { address: '' };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -14,23 +15,31 @@ class Home extends Component {
       <div>
         <h2> Where are you going ?</h2>
         <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} value={this.state.text} />
-          <button>Search</button>
+          <PlacesAutocomplete
+            value={this.state.address}
+            onChange={this.handleChange}
+          />
+          <button type="submit">Search</button>
         </form>
       </div>
     );
   }
 
   handleChange(e) {
-    this.setState({ text: e.target.value });
+    this.setState({ address: e });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    console.log(this.state.text);
-    this.setState({ text: '' });
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log(PlacesAutocomplete);
+    geocodeByAddress(this.state.address, (err, res) => {
+      if (err) {
+        console.log('Oh no!', err);
+      }
+      console.log(res);
+    });
   }
 }
 
 
-ReactDOM.render(<Home />, document.getElementById('hello'));
+ReactDOM.render(<Home />, document.getElementById('home'));
