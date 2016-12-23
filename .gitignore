@@ -113,6 +113,9 @@ Thumbs.db
 # API Keys
 .env
 
+# VSCode workspace settings
+.vscode/
+
 # Icon must ends with two \r.
 Icon
 
