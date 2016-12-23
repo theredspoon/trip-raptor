@@ -7,7 +7,9 @@
   },
   "main": "src/server/server.js",
   "scripts": {
-    "dev": "webpack-dev-server --progress --colors --display-error-details --inline --hot",
+    "dev": "run-p start-appserver webpack-dev",
+    "start-appserver": "nodemon --inspect --watch src/server",
+    "webpack-dev": "webpack-dev-server --progress --colors --display-error-details --inline --hot",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack-production.config.js -p"
   },
@@ -39,6 +41,8 @@
     "eslint-plugin-node": "^3.0.5",
     "eslint-plugin-react": "^6.8.0",
     "node-libs-browser": "^2.0.0",
+    "npm-run-all": "^3.1.2",
+    "postcss-loader": "^1.2.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"

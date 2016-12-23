@@ -8,5 +8,6 @@
   "plugins": [
       "react",
       "jsx-a11y"
-  ]
+  ],
+  "root": true
 }
