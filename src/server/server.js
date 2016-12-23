@@ -1,12 +1,19 @@
 const express = require('express');
-const db = require('./db/db.js');
+const path = require('path');
+const db = require('../db/db.js');
 const app = express();
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-db.connect(db.MODE_PRODUCTION, (err) => {
+db.connect((err) => {
   if (err) {
     console.log('Unable to connect to MySQL.');
     process.exit(1);
@@ -16,4 +23,3 @@ db.connect(db.MODE_PRODUCTION, (err) => {
     });
   }
 });
-
