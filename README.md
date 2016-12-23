@@ -6,7 +6,7 @@
 [![npm](https://img.shields.io/npm/l/express.svg)]()
 
 To load development environment, execute ```npm run dev``` in the terminal. It will spin up the following:
-1. dev server, serving static files on hot module reload, found [here](localhost:8080/webpack-dev-server)
+1. dev server, serving static files on hot module reload, found [here](localhost:8080)
 2. app server, found [here](localhost:4321)
 3. node debugger in Chrome DevTools interface, with URL found in the terminal under the line `Debugger listening on port [number]`. Copy and paste this URL into your address bar.
 
