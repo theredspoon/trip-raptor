@@ -6,7 +6,11 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { address: '' };
+    this.state = {
+      address: '',
+      lat: '',
+      lng: '',
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -37,7 +41,13 @@ class Home extends Component {
         console.log('Oh no!', err);
       }
       console.log(res);
+      this.setState({
+        lat: res.lat,
+        lng: res.lng,
+      });
+      console.log(this.state);
     });
+    this.setState({ address: '' });
   }
 }
 

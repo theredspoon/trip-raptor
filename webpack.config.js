@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const DotenvPlugin = require('webpack-dotenv-plugin');
 
 module.exports = {
@@ -30,6 +31,10 @@ module.exports = {
       sample: path.join(__dirname, '/.env.example'),
       path: path.join(__dirname, '/.env'),
     }),
+    // client-side injection
+    new webpack.EnvironmentPlugin([
+      'GOOGLE_MAPS_API',
+    ]),
   ],
   resolve: {
     extensions: ['', '.js', '.jsx', '.es6'],
