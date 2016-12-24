@@ -35,12 +35,10 @@ class Home extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(PlacesAutocomplete);
     geocodeByAddress(this.state.address, (err, res) => {
       if (err) {
-        console.log('Oh no!', err);
+        console.log('Oh no! Error: ', err);
       }
-      console.log(res);
       this.setState({
         lat: res.lat,
         lng: res.lng,
