@@ -1,15 +1,15 @@
-const mysql = require('mysql');
+const Sequelize = require('sequelize');
+// Create a database
+const connection = new Sequelize('trip_raptor', 'root', '1234');
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'trip_raptor',
+// example table name 'location'
+const location = connection.define('location', {
+  title: Sequelize.STRING,
+  image: Sequelize.STRING,
 });
 
-connection.connect((err) => {
-  if (err) throw err;
-  console.log('You are now connected...');
+connection.sync().then(() => {
+  console.log('Connected to DB');
 });
 
 module.exports = connection;

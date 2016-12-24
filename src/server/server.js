@@ -1,25 +1,21 @@
 const express = require('express');
-const path = require('path');
+const bodyParser = require('body-parser');
 const db = require('../db/db.js');
 const app = express();
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const env = app.get('env') == 'development' ? 'dev' : app.get('env');
+const port = process.env.PORT || 4321;
+app.set('port', port);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-db.connect((err) => {
+app.listen(port, (err) => {
   if (err) {
-    console.log('Unable to connect to MySQL.');
-    process.exit(1);
-  } else {
-    app.listen(4321, () => {
-      console.log('Listening on port 4321...');
-    });
+    console.log('Server not connected');
   }
+  console.log('Listening on port', port);
 });
