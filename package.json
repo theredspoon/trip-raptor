@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "run-p start-appserver webpack-dev",
     "start-appserver": "nodemon --inspect --watch src/server",
-    "webpack-dev": "webpack-dev-server --progress --colors --display-error-details --no-info --inline --hot  --content-base dist/",
+    "webpack-dev": "webpack-dev-server --config webpack.dev.config.js --progress --colors --display-error-details --no-info --inline --hot  --content-base dist/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack-production.config.js -p"
   },
@@ -28,11 +28,6 @@
   },
   "homepage": "https://github.com/Tropical-Raptor/trip-raptor#readme",
   "devDependencies": {
-    "babel-core": "^6.21.0",
-    "babel-loader": "^6.2.10",
-    "babel-preset-env": "^1.1.4",
-    "babel-preset-react": "^6.16.0",
-    "css-loader": "^0.26.1",
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-loader": "^1.6.1",
@@ -40,23 +35,32 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-node": "^3.0.5",
     "eslint-plugin-react": "^6.8.0",
-    "node-libs-browser": "^2.0.0",
     "npm-run-all": "^3.1.2",
-    "postcss-loader": "^1.2.1",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-react-css-modules": "^1.2.0",
+    "babel-preset-env": "^1.1.4",
+    "babel-preset-react": "^6.16.0",
     "body-parser": "^1.15.2",
+    "css-loader": "^0.26.1",
     "dotenv-safe": "^3.0.0",
     "express": "^4.14.0",
     "mysql": "^2.12.0",
+    "node-libs-browser": "^2.0.0",
+    "node-sass": "^4.1.1",
+    "postcss-loader": "^1.2.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-places-autocomplete": "^2.3.2",
     "react-router": "^3.0.0",
+    "resolve-url-loader": "^1.6.1",
+    "sass-loader": "^4.1.1",
     "sequelize": "^3.28.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.14.0",
     "webpack-dotenv-plugin": "^1.4.0"
   }
 }
