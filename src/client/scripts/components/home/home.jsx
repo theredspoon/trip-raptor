@@ -40,7 +40,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h2 styleName='green'> Where are you going?</h2>
+        <h2 styleName='red'> Where are you going?</h2>
         <form onSubmit={this.handleSubmit}>
           <PlacesAutocomplete
             value={this.state.address}

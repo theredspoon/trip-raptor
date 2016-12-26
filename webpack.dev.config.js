@@ -24,8 +24,7 @@ module.exports = {
         loaders: [
           'style-loader?sourceMap',
           'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-          'resolve-url-loader',
-          'sass-loader?sourceMap',
+          'fast-sass-loader', // if source map is needed, replace with "'resolve-url-loader', 'sass-loader?sourceMap'"
         ],
       },
     ],
