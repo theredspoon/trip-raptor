@@ -31,10 +31,10 @@ class Home extends Component {
         lat: res.lat,
         lng: res.lng,
       });
+      this.props.router.push('/planner');
       console.log(this.state);
     });
     this.setState({ address: '' });
-    browserHistory.push('/planner');
   }
 
   render() {
