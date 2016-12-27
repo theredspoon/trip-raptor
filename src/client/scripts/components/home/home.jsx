@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
+import { browserHistory } from 'react-router';
 
 class Home extends Component {
   constructor(props) {
@@ -46,8 +47,8 @@ class Home extends Component {
       console.log(this.state);
     });
     this.setState({ address: '' });
+    browserHistory.push('/planner');
   }
 }
 
-
-ReactDOM.render(<Home />, document.getElementById('home'));
+export default Home;
