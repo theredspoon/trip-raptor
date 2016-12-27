@@ -1,9 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
 const DotenvPlugin = require('webpack-dotenv-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src/client/scripts/app.js'),
+  entry: [
+    'bootstrap-loader',
+    path.resolve(__dirname, 'src/client/scripts/app.js')],
   output: {
     path: path.resolve(__dirname, 'dist/build'), // webpack-dev-server needs content-base to serve from 'dist/'
     publicPath: '/build/', // 'webpack result is being served from [publicPath]'
@@ -20,13 +23,26 @@ module.exports = {
         },
       },
       {
+        test: /\.scss$/,
+        loaders: [
+          'style-loader', // ?sourceMap',
+          'css-loader?modules&importLoaders=4&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+          'postcss-loader',
+          'resolve-url-loader',
+          'sass-loader?sourceMap',
+          'sass-resources-loader?sourceMap',
+        ],
+      },
+      {
         test: /\.css$/,
         loaders: [
           'style-loader?sourceMap',
           'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-          'fast-sass-loader', // if source map is needed, replace with "'resolve-url-loader', 'sass-loader?sourceMap'"
         ],
       },
+      { test: /\.(woff2?|svg)$/, loader: 'url-loader?limit=10000' },
+      { test: /\.(ttf|eot)$/, loader: 'file-loader' },
+      { test: /bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports-loader?jQuery=jquery' },
     ],
   },
   plugins: [
@@ -42,4 +58,6 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx', '.es6'],
   },
+  postcss: [autoprefixer],
+  sassResources: path.resolve(__dirname, 'config/sass-resources.scss'),
 };

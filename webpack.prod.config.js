@@ -35,6 +35,7 @@ module.exports = {
     new webpack.EnvironmentPlugin([
       'GOOGLE_MAPS_API',
     ]),
+    // needs ExtractTextWebpackPlugin to handle CSS extraction into separate file
   ],
   resolve: {
     extensions: ['', '.js', '.jsx', '.es6'],
