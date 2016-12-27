@@ -8,8 +8,12 @@ const location = connection.define('location', {
   image: Sequelize.STRING,
 });
 
-connection.sync().then(() => {
-  console.log('Connected to DB');
-});
+connection
+  .sync({ force: true })
+  .then((err) => {
+    console.log('Connected to DB');
+  }, (err) => {
+    console.log('An error occurred while creating the table:', err);
+  });
 
 module.exports = connection;
