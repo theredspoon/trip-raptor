@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
+const cssnext = require('postcss-cssnext');
 const DotenvPlugin = require('webpack-dotenv-plugin');
 
 module.exports = {
@@ -60,6 +60,6 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx', '.es6'],
   },
-  postcss: [autoprefixer],
+  postcss: [cssnext],
   sassResources: path.resolve(__dirname, 'config/sass-resources.scss'),
 };
