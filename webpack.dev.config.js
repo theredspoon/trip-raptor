@@ -6,7 +6,7 @@ const DotenvPlugin = require('webpack-dotenv-plugin');
 module.exports = {
   entry: [
     'bootstrap-loader',
-    path.resolve(__dirname, 'src/client/scripts/app.js')],
+    path.resolve(__dirname, 'src/client/scripts/app.jsx')],
   output: {
     path: path.resolve(__dirname, 'dist/build'), // webpack-dev-server needs content-base to serve from 'dist/'
     publicPath: '/build/', // 'webpack result is being served from [publicPath]'
@@ -42,6 +42,7 @@ module.exports = {
       },
       { test: /\.(woff2?|svg)$/, loader: 'url-loader?limit=10000' },
       { test: /\.(ttf|eot)$/, loader: 'file-loader' },
+      /* eslint-disable no-useless-escape */ // configured for Windows compatibility
       { test: /bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports-loader?jQuery=jquery' },
     ],
   },
@@ -53,6 +54,7 @@ module.exports = {
     }),
     // client-side config var injection
     new webpack.EnvironmentPlugin([
+      'GOOGLE_MAPS_API',
     ]),
   ],
   resolve: {
