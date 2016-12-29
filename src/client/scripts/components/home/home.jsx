@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
+import PlacesAutocomplete from 'react-places-autocomplete';
 import { browserHistory } from 'react-router';
+import Autocomplete from 'react-google-autocomplete';
 import '../../../styles/place.scss';
 
 class Home extends Component {
@@ -9,12 +10,9 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      address: '',
-      lat: '',
-      lng: '',
+      location: '',
+      place_id: '',
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
@@ -49,6 +47,17 @@ class Home extends Component {
           />
           <button type="submit" className="btn">Search</button>
         </form>
+        <Autocomplete
+          placeholder=""
+          onChange={this.handleChange}
+          style={{ width: '50%' }}
+          onPlaceSelected={(place) => {
+            this.setState({ location: place.formatted_address,
+              place_id: place.place_id });
+            console.log(place);
+            this.props.router.push('/planner');
+          }}
+        />
       </div>
     );
   }
