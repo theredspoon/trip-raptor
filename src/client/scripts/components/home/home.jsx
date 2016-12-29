@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
 import { browserHistory } from 'react-router';
+import './home.scss';
 
 class Home extends Component {
   constructor(props) {
@@ -14,20 +15,6 @@ class Home extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  }
-  render() {
-    return (
-      <div>
-        <h2> Where are you going ?</h2>
-        <form onSubmit={this.handleSubmit}>
-          <PlacesAutocomplete
-            value={this.state.address}
-            onChange={this.handleChange}
-          />
-          <button type="submit">Search</button>
-        </form>
-      </div>
-    );
   }
 
   handleChange(e) {
@@ -49,6 +36,23 @@ class Home extends Component {
     this.setState({ address: '' });
     browserHistory.push('/planner');
   }
+
+  render() {
+    return (
+      <div className="jumbotron" styleName="orange">
+        <h1>Tell me:</h1>
+        <h2 styleName="red"> Where are you going?</h2>
+        <form onSubmit={this.handleSubmit}>
+          <PlacesAutocomplete
+            value={this.state.address}
+            onChange={this.handleChange}
+          />
+          <button type="submit" className="btn">Search</button>
+        </form>
+      </div>
+    );
+  }
+
 }
 
 export default Home;
