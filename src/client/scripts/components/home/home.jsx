@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete';
 import { browserHistory } from 'react-router';
-import './home.scss';
+import '../../../styles/place.scss';
 
 class Home extends Component {
   constructor(props) {
