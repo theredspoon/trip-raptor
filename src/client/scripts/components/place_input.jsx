@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Autocomplete from 'react-google-autocomplete';
 import '../../styles/place_input.scss';
 
-class Place extends Component {
+class PlaceInput extends Component {
   render() {
     return (
       <div className="jumbotron" styleName="orange">
@@ -37,4 +37,4 @@ class Place extends Component {
   }
 }
 
-export default Place;
+export default PlaceInput;

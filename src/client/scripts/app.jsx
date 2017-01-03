@@ -6,7 +6,7 @@ import { createStore } from 'redux';
 
 import reducer from './reducers/combine_reducers';
 
-import Place from './components/place_input';
+import PlaceInput from './components/place_input';
 import Canvas from './components/canvas';
 
 const store = createStore(reducer);
@@ -14,7 +14,7 @@ const store = createStore(reducer);
 render((
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={Place} />
+      <Route path="/" component={PlaceInput} />
       <Route path="/city" component={Canvas}>
         <Route path="/city/:type">
           <Route path="/city/:type/:placeID" />
