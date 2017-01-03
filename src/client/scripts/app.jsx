@@ -15,7 +15,11 @@ render((
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={Place} />
-      <Route path="/city" component={Canvas} />
+      <Route path="/city" component={Canvas}>
+        <Route path="/city/:type">
+          <Route path="/city/:type/:placeID" />
+        </Route>
+      </Route>
     </Router>
   </Provider>
 ), document.getElementById('container'));
