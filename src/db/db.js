@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 // Create a database
-const connection = new Sequelize('trip_raptor', 'team', 'tripraptor', {
-  hostname: '107.178.219.90',
+const connection = new Sequelize('DB_NAME', 'DB_USERNAME', 'DB_PASSWORD', {
+  hostname: 'DB_HOSTNAME',
   dialect: 'mysql',
 });
 
