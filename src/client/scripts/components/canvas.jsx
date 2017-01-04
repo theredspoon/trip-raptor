@@ -1,33 +1,40 @@
 import React, { Component, PropTypes } from 'react';
+import POI from './poi';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 
 import '../../styles/canvas.scss';
 
 // pulls currentCity
+function mapStateToProps(state) {
+  console.log(state);
+  return {
+    currentLocation: state.currentLocation,
+    // branchTitles needs to be an array
+    branchTitles: state.branchTitles };
+}
+
 
 class Canvas extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    // replace all branches with .map off of state.types array
-    //something like: .map(node => <POI nodePosition="branch">{node.type}</POI>)
+    // replace all branches with .map off of state.branchTitles array
+    // something like: .map(node => <POI nodePosition="branch">{node.type}</POI>)
     return (
       <div>
-        <POI nodePosition="root"></POI>
-        <POI nodePosition="branch"></POI>
-        <POI nodePosition="branch"></POI>
-        <POI nodePosition="branch"></POI>
-        <POI nodePosition="branch"></POI>
-        <POI nodePosition="branch"></POI>
+        <POI nodePosition="root" currentRoot={this.props.currentLocation.city} />
+        {this.props.branchTitles.map(item => <POI nodePosition="branch" branchTitle={item} key={item} />)}
       </div>
     );
   }
 }
 
 Canvas.propTypes = {
-  currentCity: PropTypes.string.isRequired,
+  currentLocation: PropTypes.shape({
+    city: React.PropTypes.string,
+    id: React.PropTypes.string,
+    boundary: React.PropTypes.objectof(React.PropTypes.string),
+  }).isRequired,
+  branchTitles: PropTypes.arrayOf(React.PropTypes.string).isRequired,
 };
 
-export default Canvas;
+export default connect(mapStateToProps)(Canvas);
