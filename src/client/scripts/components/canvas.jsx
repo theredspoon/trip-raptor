@@ -10,6 +10,7 @@ function mapStateToProps(state) {
   console.log(state);
   return {
     currentLocation: state.currentLocation,
+    // branchTitles needs to be an array
     branchTitles: state.branchTitles };
 }
 
@@ -20,15 +21,20 @@ class Canvas extends Component {
     // something like: .map(node => <POI nodePosition="branch">{node.type}</POI>)
     return (
       <div>
-        <POI nodePosition="root" currentRoot={this.props.location.city} />
+        <POI nodePosition="root" currentRoot={this.props.currentLocation.city} />
         {this.props.branchTitles.map(item => <POI nodePosition="branch" branchTitle={item} key={item} />)}
       </div>
     );
   }
 }
 
-// Canvas.propbranchTitles = {
-//   currentCity: PropTypes.string.isRequired,
-// };
+Canvas.propTypes = {
+  currentLocation: PropTypes.shape({
+    city: React.PropTypes.string,
+    id: React.PropTypes.string,
+    boundary: React.PropTypes.objectof(React.PropTypes.string),
+  }).isRequired,
+  branchTitles: PropTypes.arrayOf(React.PropTypes.string).isRequired,
+};
 
 export default connect(mapStateToProps)(Canvas);
