@@ -8,7 +8,7 @@ import '../../styles/place_input.scss';
 
 function mapStateToProps(state) {
   console.log(state);
-  return { location: state.location };
+  return { currentLocation: state.currentLocation };
 }
 
 // function mapDispatchToProps(dispatch) {

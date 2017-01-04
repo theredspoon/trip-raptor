@@ -9,7 +9,7 @@ import '../../styles/canvas.scss';
 function mapStateToProps(state) {
   console.log(state);
   return {
-    location: state.location,
+    currentLocation: state.currentLocation,
     branchTitles: state.branchTitles };
 }
 
