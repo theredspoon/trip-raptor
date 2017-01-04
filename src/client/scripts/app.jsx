@@ -15,11 +15,7 @@ render((
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={PlaceInput} />
-      <Route path="/city" component={Canvas}>
-        <Route path="/city/:branch" component={POI}>
-          <Route path="/city/:branch/:placeID" />
-        </Route>
-      </Route>
+      <Route path="/city" component={Canvas} />
     </Router>
   </Provider>
 ), document.getElementById('container'));
