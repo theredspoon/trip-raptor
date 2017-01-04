@@ -61,6 +61,7 @@ class POI extends Component {
   render() {
     return (
       // circle with this.state.name centered
+      // fix results to grab results from state
       <div>
         <div onClick={this.clickHandler.bind(this)}>{this.state.name}</div>
         {this.state.results.map(item => <div>{item}</div>)}
