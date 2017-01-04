@@ -27,7 +27,7 @@ class PlaceInput extends Component {
           style={{ width: '25%' }}
           onPlaceSelected={(place) => {
             // need to set city name, viewport, and location ID
-            // place.formatted_address
+            // place.address_components[0].longname
             // place.geometry.viewport
             // place.place_id
             console.log(place);

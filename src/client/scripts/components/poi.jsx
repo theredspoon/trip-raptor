@@ -10,7 +10,7 @@ class POI extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: this.props.type,
+      branch: this.props.branch,
       nodePosition: this.props.nodePosition,
       bounds: {
         west: -122.52699999999999,
@@ -26,12 +26,12 @@ class POI extends Component {
   //   const service = new google.maps.places.PlacesService(document.createElement('container'));
   //   const search = {
   //     bounds: this.state.bounds,
-  //     keyword: this.state.type,
+  //     keyword: this.state.branch,
   //   };
   //   service.nearbySearch(search, (res) => {
   //     console.log(res.sort((a, b) => b.rating - a.rating).slice(0, 5));
   //     this.setState({ results: res.sort((a, b) => b.rating - a.rating).slice(0, 5) });
-  //       // browserHistory.push(`/city/${this.state.type}`);
+  //       // browserHistory.push(`/city/${this.state.branch}`);
   //   });
   // }
   // does some/all of functionality below get handled by Redux reducers?
@@ -51,7 +51,7 @@ class POI extends Component {
         nodePosition: 'root',
       });
       console.log(this.state);
-      browserHistory.push(`/city/${this.state.type}`);
+      browserHistory.push(`/city/${this.state.branch}`);
     } else if (this.state.nodePosition === 'leaf') {
       console.log(this.state);
       // clicking will display POIDetails
@@ -63,7 +63,7 @@ class POI extends Component {
     return (
       // circle with this.state.name centered
       <div>
-        <div onClick={this.clickHandler.bind(this)}>{this.state.type}</div>
+        <div onClick={this.clickHandler.bind(this)}>{this.state.branch}</div>
         {this.state.results.map(item => <div>{item}</div>)}
       </div>
     );

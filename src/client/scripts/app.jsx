@@ -16,8 +16,8 @@ render((
     <Router history={browserHistory}>
       <Route path="/" component={PlaceInput} />
       <Route path="/city" component={Canvas}>
-        <Route path="/city/:type" component={POI}>
-          <Route path="/city/:type/:placeID" />
+        <Route path="/city/:branch" component={POI}>
+          <Route path="/city/:branch/:placeID" />
         </Route>
       </Route>
     </Router>
