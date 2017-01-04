@@ -24,7 +24,6 @@ class PlaceInput extends Component {
         <h2 styleName="red"> Where are you going?</h2>
         <Autocomplete
           placeholder="Where are you going?"
-          style={{ width: '25%' }}
           onPlaceSelected={(place) => {
             // need to set city name, viewport, and location ID
             // place.address_components[0].longname
