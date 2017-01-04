@@ -10,24 +10,24 @@ function mapStateToProps(state) {
   console.log(state);
   return {
     location: state.location,
-    types: state.type };
+    branchTitles: state.branchTitles };
 }
 
 
 class Canvas extends Component {
   render() {
-    // replace all branches with .map off of state.types array
+    // replace all branches with .map off of state.branchTitles array
     // something like: .map(node => <POI nodePosition="branch">{node.type}</POI>)
     return (
       <div>
-        <POI nodePosition="root" type={this.props.location.city} />
-        {this.props.types.map(item => <POI nodePosition="branch" type={item} key={item} />)}
+        <POI nodePosition="root" currentRoot={this.props.location.city} />
+        {this.props.branchTitles.map(item => <POI nodePosition="branch" branchTitle={item} key={item} />)}
       </div>
     );
   }
 }
 
-// Canvas.propTypes = {
+// Canvas.propbranchTitles = {
 //   currentCity: PropTypes.string.isRequired,
 // };
 

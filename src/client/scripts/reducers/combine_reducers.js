@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import currentLocation from './location_reducer';
-import branch from './branch_reducer';
+import branchTitles from './branchTitles_reducer';
 
 export default combineReducers({
   currentLocation,
-  branch,
+  branchTitles,
 });

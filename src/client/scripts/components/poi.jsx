@@ -10,7 +10,7 @@ class POI extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      branch: this.props.branch,
+      name: this.props.currentRoot || this.props.branchTitle,
       nodePosition: this.props.nodePosition,
       bounds: {
         west: -122.52699999999999,
@@ -36,7 +36,6 @@ class POI extends Component {
   // }
   // does some/all of functionality below get handled by Redux reducers?
   clickHandler() {
-    browserHistory.goBack();
     if (this.state.nodePosition === 'root') {
       // clicking will go back up a level,
       // making this container the branch it was previously
@@ -51,7 +50,7 @@ class POI extends Component {
         nodePosition: 'root',
       });
       console.log(this.state);
-      browserHistory.push(`/city/${this.state.branch}`);
+      browserHistory.push(`/city/${this.state.branchTitle}`);
     } else if (this.state.nodePosition === 'leaf') {
       console.log(this.state);
       // clicking will display POIDetails
@@ -63,7 +62,7 @@ class POI extends Component {
     return (
       // circle with this.state.name centered
       <div>
-        <div onClick={this.clickHandler.bind(this)}>{this.state.branch}</div>
+        <div onClick={this.clickHandler.bind(this)}>{this.state.name}</div>
         {this.state.results.map(item => <div>{item}</div>)}
       </div>
     );
