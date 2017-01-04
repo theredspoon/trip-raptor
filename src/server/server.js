@@ -5,7 +5,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const env = app.get('env') == 'development' ? 'dev' : app.get('env');
+const env = app.get('env') === 'development' ? 'dev' : app.get('env');
 const port = process.env.PORT || 4321;
 app.set('port', port);
 
