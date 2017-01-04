@@ -32,7 +32,7 @@ Canvas.propTypes = {
   currentLocation: PropTypes.shape({
     city: React.PropTypes.string,
     id: React.PropTypes.string,
-    boundary: React.PropTypes.objectof(React.PropTypes.string),
+    boundary: React.PropTypes.objectOf(React.PropTypes.string),
   }).isRequired,
   branchTitles: PropTypes.arrayOf(React.PropTypes.string).isRequired,
 };
