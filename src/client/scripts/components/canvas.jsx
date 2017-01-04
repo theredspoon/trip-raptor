@@ -16,11 +16,6 @@ function mapStateToProps(state) {
 }
 
 class Canvas extends Component {
-  // componentWillMount() {
-  //   if (!this.props.currentLocation.id.length) {
-  //     browserHistory.push('/');
-  //   }
-  // }
   render() {
     // replace all branches with .map off of state.branchTitles array
     // something like: .map(node => <POI nodePosition="branch">{node.type}</POI>)
