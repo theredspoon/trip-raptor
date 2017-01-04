@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
@@ -15,7 +15,10 @@ render((
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={PlaceInput} />
-      <Route path="/city" component={Canvas} />
+      <Route path="/city" >
+        <IndexRoute component={Canvas} />
+        <Route path="/city/*" component={Canvas} />
+      </Route>
     </Router>
   </Provider>
 ), document.getElementById('container'));

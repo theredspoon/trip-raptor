@@ -23,14 +23,20 @@ class PlaceInput extends Component {
         <h1>Tell me:</h1>
         <h2 styleName="red"> Where are you going?</h2>
         <Autocomplete
+          id="AutoForm"
+          ref="AutoForm"
           placeholder="Where are you going?"
           onPlaceSelected={(place) => {
+            if (!place.place_id) {
+
+            } else {
             // need to set city name, viewport, and location ID
             // place.address_components[0].longname
             // place.geometry.viewport
             // place.place_id
-            console.log(place);
-            browserHistory.push('/city');
+              console.log(place);
+              browserHistory.push('/city');
+            }
           }}
         />
       </div>

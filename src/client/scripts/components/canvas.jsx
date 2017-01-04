@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import POI from './poi';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
+
 
 import '../../styles/canvas.scss';
 
@@ -14,8 +15,12 @@ function mapStateToProps(state) {
     branchTitles: state.branchTitles };
 }
 
-
 class Canvas extends Component {
+  // componentWillMount() {
+  //   if (!this.props.currentLocation.id.length) {
+  //     browserHistory.push('/');
+  //   }
+  // }
   render() {
     // replace all branches with .map off of state.branchTitles array
     // something like: .map(node => <POI nodePosition="branch">{node.type}</POI>)
