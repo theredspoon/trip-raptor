@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
-import Autocomplete from 'react-google-autocomplete';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Autocomplete from './google_autocomplete';
 import '../../styles/place_input.scss';
 
 function mapStateToProps(state) {
@@ -19,11 +19,14 @@ function mapStateToProps(state) {
 class PlaceInput extends Component {
   render() {
     return (
-      <div className="jumbotron" styleName="orange">
+      <div styleName="orange" >
         <h1>Tell me:</h1>
         <h2 styleName="red"> Where are you going?</h2>
         <Autocomplete
           placeholder="Where are you going?"
+          styleName="red"
+          types={['(regions)']}
+          componentRestrictions={{ country: 'us' }}
           onPlaceSelected={(place) => {
             // need to set city name, viewport, and location ID
             // place.address_components[0].longname
@@ -39,4 +42,3 @@ class PlaceInput extends Component {
 }
 
 export default connect(mapStateToProps)(PlaceInput);
-

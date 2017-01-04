@@ -14,7 +14,7 @@ const store = createStore(reducer);
 render((
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={PlaceInput} />
+      <Route path="/" component={PlaceInput}/>
       <Route path="/city" component={Canvas} />
     </Router>
   </Provider>
