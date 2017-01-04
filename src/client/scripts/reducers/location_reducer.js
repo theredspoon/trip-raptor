@@ -1,4 +1,4 @@
-import { UPDATE_CURRENT_LOCATION } from '../actions/actions';
+import { UPDATE_CURRENT_LOCATION } from '../actions/update_current_location_action';
 
 const initialState = {
   city: '',
