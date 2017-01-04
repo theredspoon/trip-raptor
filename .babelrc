@@ -6,6 +6,7 @@
   ],
   "presets": [
     "react",
-    "env"
+    "env",
+    "stage-0"
   ]
 }
