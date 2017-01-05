@@ -28,10 +28,10 @@ export function fetchPoiInfo(query) {
     };
     service.nearbySearch(search, (res) => {
       const temp = res.sort((a, b) => b.rating - a.rating).slice(0, 5);
-      console.log('in promise after dispatch', query, temp, getState());
       const results = {};
       results[query] = temp;
       dispatch(fetchPoiInfoSuccess(results));
+      console.log('in promise after dispatch', query, temp, getState());
     });
   };
 }
