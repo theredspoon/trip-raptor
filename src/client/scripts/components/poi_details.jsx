@@ -22,7 +22,7 @@ class POIDetails extends Component {
       <div>
         <div>
           <img />
-          <h1>Name of Establisment</h1> Rating
+          <h1>Name of Establishment</h1> Rating
           <span>
             <ul>
               <li>Address</li>
