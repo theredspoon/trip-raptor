@@ -1,10 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import * as POIInfo from '../actions/fetch_poi_info_action';
 
 import POIDetails from './poi_details';
 
 import '../../styles/poi.scss';
+
+const mapStateToProps = state =>
+  // check state
+   ({
+    // branchTitles needs to be an array
+     branchTitles: state.branchTitles,
+     POIs: state.POIs,
+   });
+
+const mapDispatchToProps = dispatch => ({
+  onBranchClick: (branchTitle) => {
+    dispatch(POIInfo.fetchPoiInfo(branchTitle));
+  },
+});
 
 class POI extends Component {
   constructor(props) {
@@ -12,28 +28,10 @@ class POI extends Component {
     this.state = {
       name: this.props.currentRoot || this.props.branchTitle,
       nodePosition: this.props.nodePosition,
-      bounds: {
-        west: -122.52699999999999,
-        east: -122.34820000000002,
-        north: 37.812,
-        south: 37.70339999999999,
-      },
-      results: [1, 2, 3, 4, 5],
+      query: this.props.query,
     }; // root, branch, or leaf
   }
 
-  // componentWillMount() {
-  //   const service = new google.maps.places.PlacesService(document.createElement('container'));
-  //   const search = {
-  //     bounds: this.state.bounds,
-  //     keyword: this.state.branch,
-  //   };
-  //   service.nearbySearch(search, (res) => {
-  //     console.log(res.sort((a, b) => b.rating - a.rating).slice(0, 5));
-  //     this.setState({ results: res.sort((a, b) => b.rating - a.rating).slice(0, 5) });
-  //       // browserHistory.push(`/city/${this.state.branch}`);
-  //   });
-  // }
   // does some/all of functionality below get handled by Redux reducers?
   clickHandler() {
     if (this.state.nodePosition === 'root') {
@@ -43,14 +41,13 @@ class POI extends Component {
       this.setState({
         nodePosition: 'branch',
       });
-      console.log(this.state);
     } else if (this.state.nodePosition === 'branch') {
       // clicking will make this container the new root
       this.setState({
         nodePosition: 'root',
       });
-      console.log(this.state);
-      browserHistory.push(`/city/${this.state.branchTitle}`);
+      console.log(this);
+      // browserHistory.push(`/city/${this.state.branchTitle}`);
     } else if (this.state.nodePosition === 'leaf') {
       console.log(this.state);
       // clicking will display POIDetails
@@ -63,8 +60,7 @@ class POI extends Component {
       // circle with this.state.name centered
       // fix results to grab results from state
       <div>
-        <div onClick={this.clickHandler.bind(this)}>{this.state.name}</div>
-        {this.state.results.map(item => <div>{item}</div>)}
+        <div onClick={() => this.props.onBranchClick(this.state.query)}>{this.state.name}</div>
       </div>
     );
   }
@@ -75,4 +71,4 @@ class POI extends Component {
 //   type: PropTypes.string.isRequired,
 // };
 
-export default POI;
+export default connect(mapStateToProps, mapDispatchToProps)(POI);

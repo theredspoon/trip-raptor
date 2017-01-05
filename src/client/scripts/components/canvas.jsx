@@ -2,18 +2,21 @@ import React, { Component, PropTypes } from 'react';
 import POI from './poi';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-
-
+import * as POIInfo from '../actions/fetch_poi_info_action';
 import '../../styles/canvas.scss';
 
 // pulls currentCity
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
+  // check state
   console.log(state);
   return {
     currentLocation: state.currentLocation,
     // branchTitles needs to be an array
-    branchTitles: state.branchTitles };
-}
+    branchTitles: state.branchTitles,
+    POIs: state.POIs,
+  };
+};
+
 
 class Canvas extends Component {
   render() {
@@ -22,7 +25,7 @@ class Canvas extends Component {
     return (
       <div>
         <POI nodePosition="root" currentRoot={this.props.currentLocation.city} />
-        {this.props.branchTitles.map(item => <POI nodePosition="branch" branchTitle={item} key={item} />)}
+        {this.props.branchTitles.map(item => <POI nodePosition="branch" branchTitle={item.name} key={item.query} query={item.query} />)}
       </div>
     );
   }
