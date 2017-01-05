@@ -1,4 +1,10 @@
-const intialState = ['hotels', 'points of interest', 'museums', 'nightlife', 'restaurants'];
+const intialState = [
+  { name: 'hotels', query: 'hotel' },
+  { name: 'points of interest', query: 'point of interest' },
+  { name: 'museums', query: 'museum' },
+  { name: 'nightlife', query: 'night club' },
+  { name: 'restaurants', query: 'restaurant' },
+];
 
 const branchTitles = (state = intialState, action) => {
   switch (action.type) {
