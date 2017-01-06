@@ -3,20 +3,21 @@ import POI from './poi';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import * as POIInfo from '../actions/fetch_poi_info_action';
+import { updateRoot } from '../actions/update_root_action';
 import '../../styles/canvas.scss';
 
-// pulls currentCity
 const mapStateToProps = (state) => {
   // check state
-  console.log(state);
+  console.log('This is state inside of Canvas', state.currentLocation.city, state);
+
   return {
     currentLocation: state.currentLocation,
     // branchTitles needs to be an array
     branchTitles: state.branchTitles,
     POIs: state.POIs,
+    root: state.root,
   };
 };
-
 
 class Canvas extends Component {
   render() {
@@ -24,18 +25,21 @@ class Canvas extends Component {
     // something like: .map(node => <POI nodePosition="branch">{node.type}</POI>)
     return (
       <div>
-        <POI nodePosition="root" currentRoot={this.props.currentLocation.city} />
+        <POI nodePosition="root" currentRoot={this.props.root.currentRoot} />
         {this.props.branchTitles.map(item => <POI nodePosition="branch" branchTitle={item.name} key={item.query} query={item.query} />)}
       </div>
     );
   }
 }
 
+// pulls currentCity
+
 Canvas.propTypes = {
   currentLocation: PropTypes.shape({
     city: React.PropTypes.string,
     id: React.PropTypes.string,
-    boundary: React.PropTypes.objectOf(React.PropTypes.string),
+    boundary: React.PropTypes.objectOf(React.PropTypes.objectOf(React.PropTypes.number)),
+    // FIX ME: find the proper shape ====> Is it a Number PropTypes??
   }).isRequired,
   branchTitles: PropTypes.arrayOf(React.PropTypes.string).isRequired,
 };
