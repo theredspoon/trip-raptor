@@ -4,10 +4,16 @@ import { browserHistory } from 'react-router';
 import Autocomplete from 'react-google-autocomplete';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateCurrentLocation } from '../actions/update_current_location_action';
-import { updateRoot } from '../actions/update_root_action';
+import * as UpdateCurrentLocation from '../actions/update_current_location_action';
+import * as UpdateRoot from '../actions/update_root_action';
 
 import '../../styles/place_input.scss';
+const mapDispatchToProps = dispatch => ({
+  onInputSubmit: (place) => {
+    dispatch(UpdateCurrentLocation.updateCurrentLocation(place));
+    dispatch(UpdateRoot.updateRoot(place.name));
+  },
+});
 
 class PlaceInput extends Component {
 
@@ -24,8 +30,7 @@ class PlaceInput extends Component {
             if (!place.place_id) {
               console.log('Please passing in the right City...');
             } else {
-              this.props.updateCurrentLocation(place);
-              this.props.updateRoot(place.name);
+              this.props.onInputSubmit(place);
               console.log(place);
               browserHistory.push('/city');
             }
@@ -53,5 +58,5 @@ PlaceInput.propTypes = {
   }).isRequired,
 };
 
-export default connect(mapStateToProps, { updateCurrentLocation, updateRoot })(PlaceInput);
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceInput);
 
