@@ -1,18 +1,25 @@
 import { UPDATE_CURRENT_LOCATION } from '../actions/update_current_location_action';
+import { UPDATE_ROOT } from '../actions/update_root_action';
 
 const initialState = {
   city: '',
   id: '',
-  boundary: '',
+  boundary: {
+    northeast: { lat: '', lng: '' },
+    southwest: { lat: '', lng: '' },
+  },
+  currentRoot: '',
 };
 
 const currentLocation = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_CURRENT_LOCATION:
-      return Object.assign({}, state, {
-        // todo updated/fix to work with data flow
-        info: action.info,
-      });
+      return {
+        city: action.payload.address_components[0].long_name,
+        id: action.payload.place_id,
+        boundary: action.payload.geometry.viewport,
+      };
+
     default:
       return state;
   }

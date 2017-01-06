@@ -1,22 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
 import Autocomplete from 'react-google-autocomplete';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { updateCurrentLocation } from '../actions/update_current_location_action';
+import { updateRoot } from '../actions/update_root_action';
+
 import '../../styles/place_input.scss';
 
-function mapStateToProps(state) {
-  console.log(state);
-  return { currentLocation: state.currentLocation };
-}
-
-// function mapDispatchToProps(dispatch) {
-  // will add action from action corresponding with location
-//   return { actions: bindActionCreators(actionCreators, dispatch) };
-// }
-
 class PlaceInput extends Component {
+
   render() {
     return (
       <div className="jumbotron" styleName="orange">
@@ -28,21 +22,36 @@ class PlaceInput extends Component {
           placeholder="Where are you going?"
           onPlaceSelected={(place) => {
             if (!place.place_id) {
-
+              console.log('Please passing in the right City...');
             } else {
-            // need to set city name, viewport, and location ID
-            // place.address_components[0].longname
-            // place.geometry.viewport
-            // place.place_id
+              this.props.updateCurrentLocation(place);
+              this.props.updateRoot(place.name);
               console.log(place);
               browserHistory.push('/city');
             }
           }}
+
         />
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps)(PlaceInput);
+function mapStateToProps(state) {
+  console.log('This is the state inside the PlaceInput', state);
+  return {
+    currentLocation: state.currentLocation,
+  };
+}
+
+PlaceInput.propTypes = {
+  currentLocation: PropTypes.shape({
+    city: React.PropTypes.string,
+    id: React.PropTypes.string,
+    boundary: React.PropTypes.objectOf(React.PropTypes.objectOf(React.PropTypes.number)),
+    // FIX ME: find the proper shape ====> Is it a Number PropTypes??
+  }).isRequired,
+};
+
+export default connect(mapStateToProps, { updateCurrentLocation, updateRoot })(PlaceInput);
 

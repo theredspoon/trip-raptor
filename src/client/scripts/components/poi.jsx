@@ -10,11 +10,12 @@ import '../../styles/poi.scss';
 
 const mapStateToProps = state =>
   // check state
-   ({
+  ({
     // branchTitles needs to be an array
-     branchTitles: state.branchTitles,
-     POIs: state.POIs,
-   });
+    currentRoot: state.currentRoot,
+    branchTitles: state.branchTitles,
+    POIs: state.POIs,
+  });
 
 const mapDispatchToProps = dispatch => ({
   onBranchClick: (branchTitle) => {
@@ -26,12 +27,15 @@ class POI extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.currentRoot || this.props.branchTitle,
+      currentRoot: this.props.currentRoot,
+      branchTitle: this.props.branchTitle,
       nodePosition: this.props.nodePosition,
       query: this.props.query,
     }; // root, branch, or leaf
   }
-
+  componentWillMount() {
+    console.log('in the poi will mount', this.state);
+  }
   // does some/all of functionality below get handled by Redux reducers?
   clickHandler() {
     if (this.state.nodePosition === 'root') {
@@ -60,7 +64,9 @@ class POI extends Component {
       // circle with this.state.name centered
       // fix results to grab results from state
       <div>
-        <div onClick={() => this.props.onBranchClick(this.state.query)}>{this.state.name}</div>
+        <div onClick={() => this.props.onBranchClick(this.state.query)}>{this.state.branchTitle}</div>
+
+
       </div>
     );
   }
