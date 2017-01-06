@@ -1,9 +1,10 @@
-export const ADD_TO_ITINERARY = 'ADD_TO_ITINERARY';
+const ADD_TO_ITINERARY = 'ADD_TO_ITINERARY';
 
-export function addToItinerary(payload) {
-  return {
+const addToItinerary = payload => (
+  {
     type: ADD_TO_ITINERARY,
-    // FIX ME push POI to the array
-    payload: '',
-  };
-}
+    payload,
+  }
+);
+
+export default addToItinerary;
