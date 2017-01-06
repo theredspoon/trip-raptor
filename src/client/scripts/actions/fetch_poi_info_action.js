@@ -64,7 +64,9 @@ export function fetchPoiDetails(poiID) {
       if (err) {
         dispatch(fetchPoiDetailsError(err));
       }
-      dispatch(fetchPoiDetailsSuccess(res));
+      const result = {};
+      result[poiID] = res;
+      dispatch(fetchPoiDetailsSuccess(result));
     });
   };
 }
