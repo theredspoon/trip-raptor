@@ -20,6 +20,7 @@ const mapStateToProps = (state) => {
 
 class Canvas extends Component {
   componentWillUpdate() {
+    // need to have canvas update its components with new state changes
     console.log(this.props.root);
   }
   render() {
