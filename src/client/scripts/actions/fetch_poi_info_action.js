@@ -24,16 +24,8 @@ function fetchPoiInfoError(data) {
 export function fetchPoiInfo(query) {
   return function (dispatch, getState) {
     const { currentLocation } = getState();
-    console.log(currentLocation);
     const search = {
-      bounds:
-      // currentLocation.boundary, current hardcoded
-      {
-        west: -122.52699999999999,
-        east: -122.34820000000002,
-        north: 37.812,
-        south: 37.70339999999999,
-      },
+      bounds: currentLocation.boundary,
       keyword: query,
     };
 
