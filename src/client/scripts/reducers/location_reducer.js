@@ -8,7 +8,6 @@ const initialState = {
     northeast: { lat: '', lng: '' },
     southwest: { lat: '', lng: '' },
   },
-  currentRoot: '',
 };
 
 const currentLocation = (state = initialState, action) => {
