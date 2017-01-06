@@ -37,11 +37,11 @@ class POI extends Component {
     }; // root, branch, or leaf
   }
   componentWillMount() {
-    console.log('willmount', this);
-
+    if (this.props.nodePosition === 'root') {
+      console.log('should be city');
+    }
     if (this.props.nodePosition === 'branch') {
       this.props.onBranchCreation(this.state.query);
-      console.log('willmount', this);
     }
     if (this.props.nodePosition === 'leaf') {
       this.props.onLeafCreation(this.state.query);
@@ -55,7 +55,7 @@ class POI extends Component {
   render() {
     const hasPOIProp = this.props.POIs[this.state.query];
     let status = null;
-    if (hasPOIProp) {
+    if (hasPOIProp || this.props.nodePosition === 'root') {
       status = (<div>
         <div>{this.state.name} yes</div>
       </div>);
