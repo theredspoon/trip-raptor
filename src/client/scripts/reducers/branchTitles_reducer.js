@@ -9,7 +9,9 @@ const intialState = [
 const branchTitles = (state = intialState, action) => {
   switch (action.type) {
     case 'UPDATE_BRANCH_TITLES':
-      return action.payload;
+      return Object.assign({}, state, {
+        branchTitles: action.payload,
+      });
     default:
       return state;
   }

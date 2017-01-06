@@ -74,9 +74,11 @@ class POI extends Component {
     } else if (clickPOI.hasOwnProperty(this.props.query)) {
       status = (<div>
         {clickPOI[this.props.query].name}
-        <img
-          src={`${clickPOI[this.props.query].photos[0].getUrl({ maxWidth: 400 })}`}
-        />
+        {/*
+          // BUGFIX: gracefully handle not receiving images in POI Details
+          <img
+            src={`${clickPOI[this.props.query].photos[0].getUrl({ maxWidth: 400 })}`}
+          /> */}
 
       </div>
       );

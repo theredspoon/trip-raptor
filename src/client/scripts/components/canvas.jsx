@@ -40,7 +40,7 @@ class Canvas extends Component {
     } else if (localRoot !== currentCity && localRoot) {
       canvas = (<div>
         <POI nodePosition="root" />
-        { this.props.branchTitles.map(
+        { this.props.branchTitles.branchTitles.map(
           item => <POI nodePosition="leaf" details={item} branchTitle={item.name} key={item.query} query={item.place_id} />)}
       </div>
       );
