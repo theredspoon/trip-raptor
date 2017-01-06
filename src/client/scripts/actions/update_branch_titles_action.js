@@ -11,11 +11,9 @@ export const UPDATE_BRANCH_TITLES = 'UPDATE_BRANCH_TITLES';
 
 */
 
-const updateBranchTitles = payload => (
-  {
+export function updateBranchTitles(title) {
+  return {
     type: UPDATE_BRANCH_TITLES,
-    payload,
-  }
-);
-
-export default updateBranchTitles;
+    payload: title,
+  };
+}

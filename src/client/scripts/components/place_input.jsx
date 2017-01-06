@@ -31,7 +31,6 @@ class PlaceInput extends Component {
               console.log('Please passing in the right City...');
             } else {
               this.props.onInputSubmit(place);
-              console.log(place);
               browserHistory.push('/city');
             }
           }}
