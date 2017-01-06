@@ -5,7 +5,7 @@ const intialState = {
   currentRoot: '',
 };
 
-const root = (state = intialState, action) => {
+const currentRoot = (state = intialState, action) => {
   switch (action.type) {
     case UPDATE_ROOT:
       return {
@@ -17,4 +17,4 @@ const root = (state = intialState, action) => {
   }
 };
 
-export default root;
+export default currentRoot;
