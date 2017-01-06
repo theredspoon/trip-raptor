@@ -14,24 +14,34 @@ const mapStateToProps = (state) => {
     currentLocation: state.currentLocation,
     branchTitles: state.branchTitles,
     POIs: state.POIs,
-    root: state.root,
+    currentRoot: state.currentRoot,
   };
 };
 
 class Canvas extends Component {
-  componentWillUpdate() {
-    // need to have canvas update its components with new state changes
-    console.log(this.props.root);
+  componentDidUpdate() {
+    // checking for updates
+    console.log('in canvase root is', this.props.currentRoot.currentRoot);
+    console.log(this.props.branchTitles);
   }
   render() {
+    const localRoot = this.props.currentRoot.currentRoot;
+    const currentCity = this.props.currentLocation.city;
     // replace all branches with .map off of state.branchTitles array
     // something like: .map(node => <POI nodePosition="branch">{node.type}</POI>)
-    const currentRoot = this.props.root.currentRoot;
     let canvas = null;
-    if (currentRoot) {
+    if (localRoot === currentCity) {
       canvas = (<div>
-        <POI nodePosition="root" currentRoot={this.props.root.currentRoot} />
-        { this.props.branchTitles.map(item => <POI nodePosition="branch" branchTitle={item.name} key={item.query} query={item.query} />)};
+        <POI nodePosition="root" />
+        { this.props.branchTitles.map(
+          item => <POI nodePosition="branch" branchTitle={item.name} key={item.query} query={item.query} />)}
+      </div>
+      );
+    } else if (localRoot !== currentCity && localRoot) {
+      canvas = (<div>
+        <POI nodePosition="root" />
+        { this.props.branchTitles.map(
+          item => <POI nodePosition="leaf" details={item} branchTitle={item.name} key={item.query} query={item.place_id} />)}
       </div>
       );
     } else {

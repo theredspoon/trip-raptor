@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import * as POIInfo from '../actions/fetch_poi_info_action';
 import * as UpdateRoot from '../actions/update_root_action';
+import * as UpdateBranch from '../actions/update_branch_titles_action';
 import POIDetails from './poi_details';
 
 import '../../styles/poi.scss';
@@ -16,7 +17,7 @@ const mapStateToProps = state =>
     currentRoot: state.currentRoot,
     branchTitles: state.branchTitles,
     POIs: state.POIs,
-    root: state.root,
+    selectPOI: state.selectPOI,
   });
 
 const mapDispatchToProps = dispatch => ({
@@ -26,46 +27,61 @@ const mapDispatchToProps = dispatch => ({
   onLeafCreation: (branchTitle) => {
     dispatch(POIInfo.fetchPoiDetails(branchTitle));
   },
-  onUpdateRoot: (branchTitle) => {
-    dispatch(UpdateRoot.updateRoot(branchTitle));
-    browserHistory.push(`/city/${branchTitle}`);
+  onUpdateRoot: (name, query) => {
+    dispatch(UpdateRoot.updateRoot(name));
+    dispatch(UpdateBranch.updateBranchTitles(query));
+    browserHistory.push(`/city/${name}`);
   },
+  // TODO: allow dynamic routing
+  // goBack: () => {
+  //   browserHistory.goBack();
+  // },
 });
 
 class POI extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: this.props.currentRoot || this.props.branchTitle,
-      nodePosition: this.props.nodePosition,
-      query: this.props.query,
-    }; // root, branch, or leaf
-  }
   componentWillMount() {
     if (this.props.nodePosition === 'root') {
-      console.log('hello');
-      this.setState({ name: this.props.root.currentRoot });
+      // this.setState({ name: this.props.root.currentRoot });
     }
     if (this.props.nodePosition === 'branch') {
-      this.props.onBranchCreation(this.state.query);
+      this.props.onBranchCreation(this.props.query);
     }
     if (this.props.nodePosition === 'leaf') {
-      this.props.onLeafCreation(this.state.query);
+      this.props.onLeafCreation(this.props.query);
     }
-  }
-  componentWillReceiveProps() {
   }
   // does some/all of functionality below get handled by Redux reducers?
 
   render() {
-    const hasPOIProp = this.props.POIs[this.state.query];
+    const hasPOIProp = this.props.POIs[this.props.query];
+    const localRoot = this.props.currentRoot.currentRoot;
+    const currentCity = this.props.currentLocation.city;
+    const clickPOI = this.props.selectPOI;
+
     let status = null;
-    if (hasPOIProp || this.props.nodePosition === 'root') {
+    if (this.props.nodePosition === 'root') {
       status = (<div>
-        <div onClick={() => this.props.onUpdateRoot(this.state.name)}>{this.state.name} yes</div>
+        <div >{localRoot} yes</div>
       </div>);
+    } else if (hasPOIProp) {
+      status = (<div>
+        <div
+          onClick={() => this.props.onUpdateRoot(this.props.branchTitle, this.props.POIs[this.props.query])}
+        >
+          {this.props.branchTitle} yes
+        </div>
+      </div>);
+    } else if (clickPOI.hasOwnProperty(this.props.query)) {
+      status = (<div>
+        {clickPOI[this.props.query].name}
+        <img
+          src={`${clickPOI[this.props.query].photos[0].getUrl({ maxWidth: 400 })}`}
+        />
+
+      </div>
+      );
     } else {
-      status = <div>{this.state.name} nope</div>;
+      status = <div>{this.props.branchTitle} nope</div>;
     }
     return (
       // circle with this.state.name centered
