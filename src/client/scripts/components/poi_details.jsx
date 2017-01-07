@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import * as AddToItinerary from '../actions/add_to_itinerary_action';
 
 // needs to dispatch to itinerary
 
 import '../../styles/poi_details.scss';
 
-// actions: ADD_TO_ITINERARY, REMOVE_FROM_ITINERARY, FETCH_POI_INFO
+// actions: ADD_TO_ITINERARY, FETCH_POI_INFO
 
 const mapStateToProps = state =>
   ({
     selectPOI: state.selectPOI,
+    itinerary: state.itinerary,
+    currentLocation: state.currentLocation,
   });
 
 const mapDispatchToProps = dispatch =>
   ({
-    // dispatch
+    onAddToListClick: (currentCity, selectedDetails) => {
+      const oldItinerary = this.props.itinerary.itinerary;
+      const newItinerary = oldItinerary.concat([selectedDetails]);
+      dispatch(addToItinerary.addToItinerary({
+        [currentCity]: newItinerary,
+      }));
+    }
   });
 
 class POIDetails extends Component {
@@ -68,8 +77,15 @@ class POIDetails extends Component {
             </div>
             {selectedDetails.website}
             <div>
-              <button onClick={() => console.log('Add to List is clicked')} className="btn btn-primary">Add to List</button>
-              <button className="btn btn-danger">Remove from List</button>
+              <button
+                onClick={() =>
+                  this.props.onAddToListClick(
+                    this.props.currentLocation.city,
+                    selectedDetails)}
+                className="btn btn-primary"
+              >
+                Add to List
+              </button>
             </div>
           </div>
         </div>

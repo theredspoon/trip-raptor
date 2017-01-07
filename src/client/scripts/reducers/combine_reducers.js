@@ -6,7 +6,7 @@ import POIs from './poi_details_reducer';
 import currentRoot from './root_reducer';
 import selectPOI from './select_poi_reducer';
 import currentClickedLeaf from './current_leaf_reducer';
-
+import itinerary from './itinerary_reducer';
 
 export default combineReducers({
   currentLocation,
@@ -16,5 +16,5 @@ export default combineReducers({
   selectPOI,
   currentClickedLeaf,
   routing: routerReducer,
+  itinerary,
 });
-
