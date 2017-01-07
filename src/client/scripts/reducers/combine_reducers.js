@@ -4,6 +4,7 @@ import branchTitles from './branchTitles_reducer';
 import POIs from './poi_details_reducer';
 import currentRoot from './root_reducer';
 import selectPOI from './select_poi_reducer';
+import currentClickedLeaf from './current_leaf_reducer';
 
 
 export default combineReducers({
@@ -12,4 +13,5 @@ export default combineReducers({
   POIs,
   currentRoot,
   selectPOI,
+  currentClickedLeaf,
 });
