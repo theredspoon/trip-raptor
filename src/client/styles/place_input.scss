@@ -1,11 +1,31 @@
-.red {
-  color: red;
+body {
+  background-color: black;
+  color: lawngreen;
+  text-align: center;
+}
+.navbar-brand {
+  font-weight: bolder;
+  color: ghostwhite;
+  font-size: 25px;
+}
+.ask {
+  color: white;
+  margin-top: 350px;
+  font-size: 45px;
 }
 
 .blue {
   color: blue;
 }
 
-.orange {
-  color: $brand-danger;
+.autoForm {
+  font-size: 40px;
+  background-color: transparent;
+  border: 0px solid;
+  color: #CCC;
+  text-align: center;
+  width: 75%;
+}
+.autoForm:focus {
+    outline:none;
 }

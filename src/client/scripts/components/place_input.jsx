@@ -19,13 +19,18 @@ class PlaceInput extends Component {
 
   render() {
     return (
-      <div className="jumbotron" styleName="orange">
-        <h1>Tell me:</h1>
-        <h2 styleName="red"> Where are you going?</h2>
+      <div>
+        <nav className="navbar navbar-inverse">
+          <div className="container-fluid">
+            <a className="navbar-brand" href="#">TRIP_RAPTOR</a>
+          </div>
+        </nav>
+        <h1 styleName="ask"> Which city are you going?</h1>
         <Autocomplete
           id="AutoForm"
+          styleName="autoForm"
           ref="AutoForm"
-          placeholder="Where are you going?"
+          placeholder="_____________________________"
           onPlaceSelected={(place) => {
             if (!place.place_id) {
               console.log('Please passing in the right City...');
@@ -34,7 +39,6 @@ class PlaceInput extends Component {
               browserHistory.push('/city');
             }
           }}
-
         />
       </div>
     );
