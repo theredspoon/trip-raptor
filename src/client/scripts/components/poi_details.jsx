@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as AddToItinerary from '../actions/add_to_itinerary_action';
 
@@ -18,13 +17,19 @@ const mapStateToProps = state =>
 
 const mapDispatchToProps = dispatch =>
   ({
-    onAddToListClick: (currentCity, selectedDetails) => {
-      const oldItinerary = this.props.itinerary.itinerary;
-      const newItinerary = oldItinerary.concat([selectedDetails]);
-      dispatch(addToItinerary.addToItinerary({
-        [currentCity]: newItinerary,
+    onAddToListClick: (currentCity, selectedDetails, oldItinerary) => {
+      // logic for handling new city vs existing city
+      console.log('Old Itinerary is ', oldItinerary);
+      const POIsInCity =
+      // if currentCity is defined
+        oldItinerary[currentCity] ?
+          oldItinerary[currentCity].concat([selectedDetails]) :
+      // if currentCity is undefined
+          [selectedDetails];
+      dispatch(AddToItinerary.addToItinerary({
+        [currentCity]: POIsInCity,
       }));
-    }
+    },
   });
 
 class POIDetails extends Component {
@@ -81,7 +86,7 @@ class POIDetails extends Component {
                 onClick={() =>
                   this.props.onAddToListClick(
                     this.props.currentLocation.city,
-                    selectedDetails)}
+                    selectedDetails, this.props.itinerary.itinerary)}
                 className="btn btn-primary"
               >
                 Add to List
