@@ -25,8 +25,8 @@ const mapStateToProps = (state) => {
 class Canvas extends Component {
   componentDidUpdate() {
     // checking for updates
-    console.log('in canvase root is', this.props.currentRoot.currentRoot);
-    console.log(this.props.branchTitles);
+    console.log('CurrentRoot in CANVAS is', this.props.currentRoot.currentRoot);
+    // console.log(this.props.branchTitles);
   }
   render() {
     const localRoot = this.props.currentRoot.currentRoot;
@@ -35,32 +35,42 @@ class Canvas extends Component {
     // something like: .map(node => <POI nodePosition="branch">{node.type}</POI>)
     let canvas = null;
     if (localRoot === currentCity) {
-      canvas = (<div>
-        <POI nodePosition="root" />
-        { this.props.branchTitles.map(
-          item => <POI nodePosition="branch" branchTitle={item.name} key={item.query} query={item.query} />)}
+      canvas = (<div styleName="rootCity">
+        <div>
+          <POI nodePosition="root" />
+          { this.props.branchTitles.map(
+          (item, index) =>
+            <POI
+              nodePosition="branch"
+              branchTitle={item.name}
+              key={index}
+              query={item.query}
+            />,
+            )}
+        </div>
       </div>
       );
     } else if (localRoot !== currentCity && localRoot) {
-      canvas = (<div>
-        <POI nodePosition="root" />
-        { this.props.branchTitles.branchTitles.map(
-          item =>
-            <POI
-              nodePosition="leaf"
-              details={item}
-              branchTitle={item.name}
-              key={item.query}
-              query={item.place_id}
-            />
-        )}
-      </div>
+      canvas = (
+        <div styleName="titles">
+          <POI nodePosition="root" />
+          { this.props.branchTitles.branchTitles.map(
+            (item, index) =>
+              <POI
+                nodePosition="leaf"
+                details={item}
+                branchTitle={item.name}
+                key={index}
+                query={item.place_id}
+              />)
+          }
+        </div>
       );
     } else {
       canvas = <div>Loading...</div>;
     }
     return (
-      <div >
+      <div>
         {canvas}
       </div>
     );

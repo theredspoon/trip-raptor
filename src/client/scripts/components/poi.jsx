@@ -36,7 +36,7 @@ const mapDispatchToProps = dispatch => ({
   },
   onLeafClick: (branchTitle) => {
     dispatch(UpdateCurrentLeaf.updateCurrentClickedLeaf(branchTitle));
-  }
+  },
   // TODO: allow dynamic routing
   // goBack: () => {
   //   browserHistory.goBack();
@@ -76,48 +76,59 @@ class POI extends Component {
     let status = null;
     if (this.props.nodePosition === 'root') {
       // if node is a root
-      status = (<div>
-        <div >{localRoot} yes</div>
-      </div>);
+      status =
+        (
+          <div styleName="branchRoot">
+            <div>
+              { localRoot }
+            </div>
+          </div>
+        );
     } else if (hasPOIProp) {
       // if promise is returned inside of branch
-      status = (<div>
-        <div
-          onClick={() =>
-            this.props.onUpdateRoot(
-              this.props.branchTitle,
-              this.props.POIs[this.props.query])}
-        >
-          {this.props.branchTitle} yes
-        </div>
-      </div>);
+      status =
+        (
+          <div styleName="branch">
+            <div
+              onClick={
+                () => this.props.onUpdateRoot(
+                  this.props.branchTitle,
+                  this.props.POIs[this.props.query],
+                )
+              }
+            >
+              {this.props.branchTitle}
+            </div>
+          </div>
+        );
     } else if (clickPOI.hasOwnProperty(this.props.query)) {
       // if promise is returned inside of leaf
       // does HTML in tooltip need to be added as an attribute?
       if (this.props.currentClickedLeaf.currentClickedLeaf === this.props.branchTitle) {
         status = (
-          <div onClick={() => this.props.onLeafClick(this.props.branchTitle)}>
+          <div styleName="poiBranchClick" onClick={() => this.props.onLeafClick(this.props.branchTitle)}>
             {clickPOI[this.props.query].name}
             <POIDetails />
-          {/*
+            {/*
             // BUGFIX: gracefully handle not receiving images in POI Details
             <img
               src={`${clickPOI[this.props.query].photos[0].getUrl({ maxWidth: 400 })}`}
             /> */}
           </div>
           );
-        } else {
-          status = (
-            <div onClick={() => this.props.onLeafClick(this.props.branchTitle)}>
+      } else {
+        status =
+          (
+            <div styleName="poiBranch" onClick={() => this.props.onLeafClick(this.props.branchTitle)}>
               {clickPOI[this.props.query].name}
-            {/*
+              {/*
               // BUGFIX: gracefully handle not receiving images in POI Details
               <img
                 src={`${clickPOI[this.props.query].photos[0].getUrl({ maxWidth: 400 })}`}
               /> */}
             </div>
-            );
-        }
+          );
+      }
     } else {
       // if promise is not returned (and all other cases)
       status = <div>{this.props.branchTitle} nope</div>;
@@ -126,7 +137,7 @@ class POI extends Component {
       // circle with this.state.name centered
       // fix results to grab results from state
       <div>
-        {status}
+        { status }
       </div>
     );
   }

@@ -30,21 +30,21 @@ class POIDetails extends Component {
   render() {
     return (
       <div>
-        <div>
+        <div styleName="poiDetail">
           <img />
-          <h1>Name of Establishment</h1> Rating
-          <span>
+          <h2>Name of Establishment</h2> Rating
+          <div>
             <ul>
               <li>Address</li>
               <li>Phone Number</li>
               <li>International Phone Number</li>
             </ul>
-          </span>
+          </div>
           Website
-        </div>
-        <div>
-          <button className="btn btn-primary">Add to List</button>
-          <button className="btn btn-danger">Remove from List</button>
+          <div>
+            <button className="btn btn-primary">Add to List</button>
+            <button className="btn btn-danger">Remove from List</button>
+          </div>
         </div>
       </div>
     );
