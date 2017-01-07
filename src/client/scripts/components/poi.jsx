@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
+import { push, goBack, go } from 'react-router-redux';
 import * as POIInfo from '../actions/fetch_poi_info_action';
 import * as UpdateRoot from '../actions/update_root_action';
 import * as UpdateBranch from '../actions/update_branch_titles_action';
@@ -20,6 +21,7 @@ const mapStateToProps = state =>
     POIs: state.POIs,
     selectPOI: state.selectPOI,
     currentClickedLeaf: state.currentClickedLeaf,
+    routing: state.routing,
   });
 
 const mapDispatchToProps = dispatch => ({
@@ -32,15 +34,24 @@ const mapDispatchToProps = dispatch => ({
   onUpdateRoot: (name, query) => {
     dispatch(UpdateRoot.updateRoot(name));
     dispatch(UpdateBranch.updateBranchTitles(query));
-    browserHistory.push(`/city/${name}`);
+    dispatch(push(`/city/${name}`));
   },
-  onLeafClick: (branchTitle) => {
-    dispatch(UpdateCurrentLeaf.updateCurrentClickedLeaf(branchTitle));
+  onLeafClick: (branchTitle, type, id) => {
+    if (id) {
+      dispatch(push(`/city/${type}/${branchTitle}${id}`));
+      dispatch(UpdateCurrentLeaf.updateCurrentClickedLeaf(branchTitle));
+    } else {
+      dispatch(push(`/city/${type}/${branchTitle}`));
+      dispatch(UpdateCurrentLeaf.updateCurrentClickedLeaf(branchTitle));
+    }
   },
   // TODO: allow dynamic routing
-  // goBack: () => {
-  //   browserHistory.goBack();
-  // },
+  goBack: (location) => {
+    if (location.currentLocation.city !== location.currentRoot.currentRoot) {
+      dispatch(go('/city'));
+    }
+    dispatch(goBack());
+  },
 });
 
 class POI extends Component {
@@ -78,7 +89,10 @@ class POI extends Component {
       // if node is a root
       status =
         (
-          <div styleName="branchRoot">
+          <div
+            styleName="branchRoot"
+            onClick={() => this.props.goBack(this.props)}
+          >
             <div>
               { localRoot }
             </div>
@@ -106,9 +120,9 @@ class POI extends Component {
       // does HTML in tooltip need to be added as an attribute?
       if (this.props.currentClickedLeaf.currentClickedLeaf === this.props.branchTitle) {
         status = (
-          <div styleName="poiBranchClick" onClick={() => this.props.onLeafClick(this.props.branchTitle)}>
+          <div styleName="poiBranchClick" onClick={() => this.props.onLeafClick('', localRoot)}>
             {clickPOI[this.props.query].name}
-            <POIDetails />
+            <POIDetails details={this.props.query} />
             {/*
             // BUGFIX: gracefully handle not receiving images in POI Details
             <img
@@ -119,7 +133,7 @@ class POI extends Component {
       } else {
         status =
           (
-            <div styleName="poiBranch" onClick={() => this.props.onLeafClick(this.props.branchTitle)}>
+            <div styleName="poiBranch" onClick={() => this.props.onLeafClick(this.props.branchTitle, localRoot, this.props.query)}>
               {clickPOI[this.props.query].name}
               {/*
               // BUGFIX: gracefully handle not receiving images in POI Details
