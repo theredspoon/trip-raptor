@@ -68,7 +68,7 @@ class POIDetails extends Component {
             </div>
             {selectedDetails.website}
             <div>
-              <button className="btn btn-primary">Add to List</button>
+              <button onClick={() => console.log('Add to List is clicked')} className="btn btn-primary">Add to List</button>
               <button className="btn btn-danger">Remove from List</button>
             </div>
           </div>
