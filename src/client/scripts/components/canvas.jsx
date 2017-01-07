@@ -1,9 +1,13 @@
 import React, { Component, PropTypes } from 'react';
+
 import POI from './poi';
+import POIDetails from './poi_details';
+
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import * as POIInfo from '../actions/fetch_poi_info_action';
 import { updateRoot } from '../actions/update_root_action';
+
 import '../../styles/canvas.scss';
 
 const mapStateToProps = (state) => {
@@ -41,7 +45,15 @@ class Canvas extends Component {
       canvas = (<div>
         <POI nodePosition="root" />
         { this.props.branchTitles.branchTitles.map(
-          item => <POI nodePosition="leaf" details={item} branchTitle={item.name} key={item.query} query={item.place_id} />)}
+          item =>
+            <POI
+              nodePosition="leaf"
+              details={item}
+              branchTitle={item.name}
+              key={item.query}
+              query={item.place_id}
+            />
+        )}
       </div>
       );
     } else {

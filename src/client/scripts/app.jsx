@@ -15,6 +15,8 @@ const store = createStore(
   applyMiddleware(thunk),
 );
 
+// TODO: add implementation for /city/*/*
+
 render((
   <Provider store={store}>
     <Router history={browserHistory}>
