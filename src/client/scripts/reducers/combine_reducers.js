@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 import currentLocation from './location_reducer';
 import branchTitles from './branchTitles_reducer';
 import POIs from './poi_details_reducer';
@@ -14,4 +15,6 @@ export default combineReducers({
   currentRoot,
   selectPOI,
   currentClickedLeaf,
+  routing: routerReducer,
 });
+

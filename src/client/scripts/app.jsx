@@ -4,6 +4,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 
 import reducer from './reducers/combine_reducers';
 import PlaceInput from './components/place_input';
@@ -12,14 +13,17 @@ import POI from './components/poi';
 
 const store = createStore(
   reducer,
-  applyMiddleware(thunk),
+  applyMiddleware(
+    thunk,
+    routerMiddleware(browserHistory),
+    ),
 );
 
-// TODO: add implementation for /city/*/*
+const history = syncHistoryWithStore(browserHistory, store);
 
 render((
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={history}>
       <Route path="/" component={PlaceInput} />
       <Route path="/city" >
         <IndexRoute component={Canvas} />

@@ -46,11 +46,13 @@ const mapDispatchToProps = dispatch => ({
     }
   },
   // TODO: allow dynamic routing
-  goBack: (location) => {
-    if (location.currentLocation.city !== location.currentRoot.currentRoot) {
-      dispatch(go('/city'));
+  goBack: (current, destination) => {
+    console.log('trying to go to', destination);
+    if (current !== destination) {
+      dispatch(UpdateRoot.updateRoot(destination));
+    } else {
+      dispatch(push('/'));
     }
-    dispatch(goBack());
   },
 });
 
@@ -91,7 +93,7 @@ class POI extends Component {
         (
           <div
             styleName="branchRoot"
-            onClick={() => this.props.goBack(this.props)}
+            onClick={() => this.props.goBack(localRoot, currentCity)}
           >
             <div>
               { localRoot }
@@ -122,7 +124,7 @@ class POI extends Component {
         status = (
           <div styleName="poiBranchClick" onClick={() => this.props.onLeafClick('', localRoot)}>
             {clickPOI[this.props.query].name}
-            <POIDetails details={this.props.query} />
+            <POIDetails placeID={this.props.query} />
             {/*
             // BUGFIX: gracefully handle not receiving images in POI Details
             <img
