@@ -12,7 +12,7 @@ import '../../styles/canvas.scss';
 
 const mapStateToProps = (state) => {
   // check state
-  console.log('This is state inside of Canvas', state.currentLocation.city, state);
+  console.log('This is state inside of Canvas', state);
 
   return {
     currentLocation: state.currentLocation,
@@ -25,9 +25,9 @@ const mapStateToProps = (state) => {
 class Canvas extends Component {
   componentDidUpdate() {
     // checking for updates
-    console.log('CurrentRoot in CANVAS is', this.props.currentRoot.currentRoot);
-    // console.log(this.props.branchTitles);
+    console.log('CurrentRoot in CANVAS is', this.props);
   }
+
   render() {
     const localRoot = this.props.currentRoot.currentRoot;
     const currentCity = this.props.currentLocation.city;
@@ -38,13 +38,14 @@ class Canvas extends Component {
       canvas = (<div styleName="rootCity">
         <div>
           <POI nodePosition="root" />
-          { this.props.branchTitles.map(
+          { this.props.branchTitles.default.map(
           (item, index) =>
             <POI
               nodePosition="branch"
               branchTitle={item.name}
               key={index}
               query={item.query}
+              index={index}
             />,
             )}
         </div>
