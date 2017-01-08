@@ -1,10 +1,8 @@
-const ADD_TO_ITINERARY = 'ADD_TO_ITINERARY';
+export const ADD_TO_ITINERARY = 'ADD_TO_ITINERARY';
 
-const addToItinerary = payload => (
-  {
+export function addToItinerary(payload) {
+  return {
     type: ADD_TO_ITINERARY,
     payload,
-  }
-);
-
-export default addToItinerary;
+  };
+}

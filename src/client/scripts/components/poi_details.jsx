@@ -1,21 +1,36 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import * as AddToItinerary from '../actions/add_to_itinerary_action';
 
 // needs to dispatch to itinerary
 
 import '../../styles/poi_details.scss';
 
-// actions: ADD_TO_ITINERARY, REMOVE_FROM_ITINERARY, FETCH_POI_INFO
+// actions: ADD_TO_ITINERARY, FETCH_POI_INFO
 
 const mapStateToProps = state =>
   ({
     selectPOI: state.selectPOI,
+    itinerary: state.itinerary,
+    currentLocation: state.currentLocation,
   });
 
 const mapDispatchToProps = dispatch =>
   ({
-    // dispatch
+    onAddToListClick: (currentCity, selectedDetails, oldItinerary) => {
+      // logic for handling new city vs existing city
+      console.log('Old Itinerary is ', oldItinerary);
+      const POIsInCity =
+      // if currentCity is defined
+        oldItinerary[currentCity] ?
+          oldItinerary[currentCity].concat([selectedDetails]) :
+      // if currentCity is undefined
+          [selectedDetails];
+      dispatch(AddToItinerary.addToItinerary({
+        ...oldItinerary,
+        [currentCity]: POIsInCity,
+      }));
+    },
   });
 
 class POIDetails extends Component {
@@ -33,9 +48,9 @@ class POIDetails extends Component {
       poiDetails = (
         <div>
           <div styleName="poiDetail">
-            <img
+            {/* <img
               src={`${selectedDetails.photos[0].getUrl({ maxWidth: 250 })}`}
-            />
+            /> */}
             <h2>{selectedDetails.name}</h2>
             Rating: {selectedDetails.rating}
             <div>
@@ -47,8 +62,12 @@ class POIDetails extends Component {
             </div>
             {selectedDetails.website}
             <div>
-              <button className="btn btn-primary">Add to List</button>
-              <button className="btn btn-danger">Remove from List</button>
+              <button
+                onClick={() =>
+                this.props.onAddToListClick(
+                this.props.currentLocation.city,
+                selectedDetails, this.props.itinerary.itinerary)}
+                className="btn btn-primary">Add to List</button>
             </div>
           </div>
         </div>
@@ -68,8 +87,15 @@ class POIDetails extends Component {
             </div>
             {selectedDetails.website}
             <div>
-              <button className="btn btn-primary">Add to List</button>
-              <button className="btn btn-danger">Remove from List</button>
+              <button
+                onClick={() =>
+                  this.props.onAddToListClick(
+                    this.props.currentLocation.city,
+                    selectedDetails, this.props.itinerary.itinerary)}
+                className="btn btn-primary"
+              >
+                Add to List
+              </button>
             </div>
           </div>
         </div>
