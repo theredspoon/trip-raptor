@@ -27,6 +27,7 @@ const mapDispatchToProps = dispatch =>
       // if currentCity is undefined
           [selectedDetails];
       dispatch(AddToItinerary.addToItinerary({
+        ...oldItinerary,
         [currentCity]: POIsInCity,
       }));
     },
@@ -47,9 +48,9 @@ class POIDetails extends Component {
       poiDetails = (
         <div>
           <div styleName="poiDetail">
-            <img
+            {/* <img
               src={`${selectedDetails.photos[0].getUrl({ maxWidth: 250 })}`}
-            />
+            /> */}
             <h2>{selectedDetails.name}</h2>
             Rating: {selectedDetails.rating}
             <div>
@@ -61,8 +62,12 @@ class POIDetails extends Component {
             </div>
             {selectedDetails.website}
             <div>
-              <button className="btn btn-primary">Add to List</button>
-              <button className="btn btn-danger">Remove from List</button>
+              <button
+                onClick={() =>
+                this.props.onAddToListClick(
+                this.props.currentLocation.city,
+                selectedDetails, this.props.itinerary.itinerary)}
+                className="btn btn-primary">Add to List</button>
             </div>
           </div>
         </div>

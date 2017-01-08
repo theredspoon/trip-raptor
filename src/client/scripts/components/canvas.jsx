@@ -25,7 +25,7 @@ const mapStateToProps = (state) => {
 class Canvas extends Component {
   componentDidUpdate() {
     // checking for updates
-    console.log('CurrentRoot in CANVAS is', this.props);
+    // console.log('CurrentRoot in CANVAS is', this.props);
   }
 
   render() {
