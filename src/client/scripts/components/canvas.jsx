@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import POI from './poi';
 import POIDetails from './poi_details';
+import Itinerary from './itinerary';
 
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
@@ -73,6 +74,7 @@ class Canvas extends Component {
     return (
       <div>
         {canvas}
+        <Itinerary />
       </div>
     );
   }
