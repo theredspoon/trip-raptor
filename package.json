@@ -8,7 +8,9 @@
   "main": "src/server/server.js",
   "scripts": {
     "dev": "run-p start-appserver webpack-dev",
+    "vsc": "run-p webpack-dev node-noinspect",
     "start": "npm run dev",
+    "node-noinspect": "nodemon --watch src/server",
     "start-appserver": "nodemon --inspect --watch src/server",
     "webpack-dev": "webpack-dev-server --config webpack.dev.config.js --progress --colors --display-error-details --no-info --inline --hot  --content-base dist/",
     "test": "echo \"Error: no test specified\" && exit 1",

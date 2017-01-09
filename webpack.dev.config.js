@@ -25,10 +25,10 @@ module.exports = {
       {
         test: /\.scss$/,
         loaders: [
-          'style-loader', // ?sourceMap',
-          'css-loader?modules&importLoaders=4&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-          'postcss-loader',
-          'resolve-url-loader',
+          'style-loader?sourceMap',
+          'css-loader?modules&sourceMap&importLoaders=4&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+          'postcss-loader?sourceMap',
+          'resolve-url-loader?sourceMap',
           'sass-loader?sourceMap',
           'sass-resources-loader?sourceMap',
         ],
@@ -56,6 +56,12 @@ module.exports = {
     new webpack.EnvironmentPlugin([
       'GOOGLE_MAPS_API',
     ]),
+    new webpack.SourceMapDevToolPlugin({
+      filename: 'bundle.js.map',
+      append: null,
+      moduleFilenameTemplate: '[absolute-resource-path]',
+      fallbackModuleFilenameTemplate: '[absolute-resource-path]',
+    }),
   ],
   resolve: {
     extensions: ['', '.js', '.jsx', '.es6'],
