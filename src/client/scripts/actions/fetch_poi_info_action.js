@@ -27,6 +27,7 @@ export function fetchPoiInfo(query) {
     const search = {
       bounds: currentLocation.boundary,
       keyword: query,
+      type: query,
     };
 
     service.nearbySearch(search, (res, err) => {
