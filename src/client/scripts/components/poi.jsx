@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { push, goBack, go } from 'react-router-redux';
+import { Overlay, Popover } from 'react-bootstrap';
 import * as POIInfo from '../actions/fetch_poi_info_action';
 import * as UpdateRoot from '../actions/update_root_action';
 import * as UpdateBranch from '../actions/update_branch_titles_action';
@@ -19,7 +20,6 @@ const mapStateToProps = state =>
     currentRoot: state.currentRoot,
     branchTitles: state.branchTitles,
     POIs: state.POIs,
-    selectPOI: state.selectPOI,
     currentClickedLeaf: state.currentClickedLeaf,
     routing: state.routing,
   });
@@ -38,7 +38,7 @@ const mapDispatchToProps = dispatch => ({
   },
   onLeafClick: (branchTitle, type, id) => {
     if (id) {
-      dispatch(push(`/city/${type}/${branchTitle}${id}`));
+      dispatch(push(`/city/${type}/${branchTitle}/${id}`));
       dispatch(UpdateCurrentLeaf.updateCurrentClickedLeaf(branchTitle));
     } else {
       dispatch(push(`/city/${type}/${branchTitle}`));
@@ -63,6 +63,7 @@ class POI extends Component {
   } */
 
   componentWillMount() {
+    console.log('Maybe leaf?', this.props);
     if (this.props.nodePosition === 'root') {
       // this.setState({ name: this.props.root.currentRoot });
     }
@@ -70,6 +71,7 @@ class POI extends Component {
       this.props.onBranchCreation(this.props.query);
     }
     if (this.props.nodePosition === 'leaf') {
+      console.log('This is a leaf prop', this.props);
       this.props.onLeafCreation(this.props.query);
     }
   }
@@ -84,7 +86,6 @@ class POI extends Component {
     const hasPOIProp = this.props.POIs[this.props.query];
     const localRoot = this.props.currentRoot.currentRoot;
     const currentCity = this.props.currentLocation.city;
-    const clickPOI = this.props.selectPOI;
 
     let status = null;
     if (this.props.nodePosition === 'root') {
@@ -92,7 +93,6 @@ class POI extends Component {
       status =
         (
           <div
-            styleName="branchRoot"
             onClick={() => this.props.goBack(localRoot, currentCity)}
           >
             <div>
@@ -104,7 +104,7 @@ class POI extends Component {
       // if promise is returned inside of branch
       status =
         (
-          <div styleName="branch">
+          <div>
             <div
               onClick={
                 () => this.props.onUpdateRoot(
@@ -117,34 +117,34 @@ class POI extends Component {
             </div>
           </div>
         );
-    } else if (clickPOI.hasOwnProperty(this.props.query)) {
+    } else if (this.props.currentClickedLeaf.currentClickedLeaf === this.props.query) {
       // if promise is returned inside of leaf
       // does HTML in tooltip need to be added as an attribute?
-      if (this.props.currentClickedLeaf.currentClickedLeaf === this.props.branchTitle) {
-        status = (
-          <div styleName="poiBranchClick" onClick={() => this.props.onLeafClick('', localRoot)}>
-            {clickPOI[this.props.query].name}
-            <POIDetails placeID={this.props.query} />
-            {/*
-            // BUGFIX: gracefully handle not receiving images in POI Details
-            <img
-              src={`${clickPOI[this.props.query].photos[0].getUrl({ maxWidth: 400 })}`}
-            /> */}
+      status = (
+        <div>
+          <div onClick={() => this.props.onLeafClick('', localRoot)}>
+            {this.props.branchTitle}
           </div>
-          );
-      } else {
-        status =
-          (
-            <div styleName="poiBranch" onClick={() => this.props.onLeafClick(this.props.branchTitle, localRoot, this.props.query)}>
-              {clickPOI[this.props.query].name}
-              {/*
-              // BUGFIX: gracefully handle not receiving images in POI Details
-              <img
-                src={`${clickPOI[this.props.query].photos[0].getUrl({ maxWidth: 400 })}`}
-              /> */}
-            </div>
-          );
-      }
+          <Overlay
+            show={this.props.currentClickedLeaf.currentClickedLeaf === this.props.query}
+            container={this}
+          >
+            <Popover
+              id="popover-position-top"
+              title="Popover top"
+              placement="top"
+            >
+              <POIDetails details={this.props.details} />
+            </Popover>
+          </Overlay>
+        </div>
+        );
+    } else if (this.props.nodePosition === 'leaf') {
+      status = (
+        <div onClick={() => this.props.onLeafClick(this.props.query, localRoot, this.props.query)}>
+          {this.props.branchTitle}
+        </div>
+        );
     } else {
       // if promise is not returned (and all other cases)
       status = <div>{this.props.branchTitle} nope</div>;

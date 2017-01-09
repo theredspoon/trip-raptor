@@ -10,7 +10,6 @@ import '../../styles/poi_details.scss';
 
 const mapStateToProps = state =>
   ({
-    selectPOI: state.selectPOI,
     itinerary: state.itinerary,
     currentLocation: state.currentLocation,
   });
@@ -42,15 +41,17 @@ class POIDetails extends Component {
   // current info within render is example data. change as needed
     // example src=`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.props.photos[0].photo_reference}&key=AIzaSyC535s39VzBWKFSXSlMaOllvk5ocBGNh9E`
   render() {
-    const selectedDetails = this.props.selectPOI[this.props.placeID];
+    const selectedDetails = this.props.details;
     let poiDetails = null;
     if (selectedDetails.photos) {
       poiDetails = (
-        <div>
-          <div styleName="poiDetail">
-            {/* <img
+        <div
+          styleName="poiDetail"
+        >
+          <div>
+            <img
               src={`${selectedDetails.photos[0].getUrl({ maxWidth: 250 })}`}
-            /> */}
+            />
             <h2>{selectedDetails.name}</h2>
             Rating: {selectedDetails.rating}
             <div>
@@ -67,15 +68,20 @@ class POIDetails extends Component {
                 this.props.onAddToListClick(
                 this.props.currentLocation.city,
                 selectedDetails, this.props.itinerary.itinerary)}
-                className="btn btn-primary">Add to List</button>
+                className="btn btn-primary"
+              >
+                Add to List
+              </button>
             </div>
           </div>
         </div>
       );
     } else {
       poiDetails = (
-        <div>
-          <div styleName="poiDetail">
+        <div
+          styleName="poiDetail"
+        >
+          <div >
             <h2>{selectedDetails.name}</h2>
             Rating: {selectedDetails.rating}
             <div>

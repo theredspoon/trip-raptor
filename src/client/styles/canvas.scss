@@ -1,10 +1,113 @@
-.rootCity {
-  color: blue;
+.branchRoot {
+  background-color: saddlebrown;
+  border-radius: 50%;
+  height: 250px;
+  width: 250px;
+  text-align: center;
+  padding-top: 100px;
+  display: block;
+  position: absolute;
+  margin-top: 260px;
+  margin-left: 520px;
   font-size: 30px;
-
+  
 }
+
+.branch {
+  background-color: lightpink;
+  border-radius: 50%;
+  height: 250px;
+  width: 250px;
+  text-align: center;
+  padding-top: 100px;
+  display: block;
+  position: absolute;
+}
+// .rootCity {
+//   color: blue;
+//   font-size: 30px;
+//   margin-top: 250px;
+//   margin-left: 500px;
+// }
 
 .titles {
   color: orangered;
   font-size: 30px;
+}
+
+.zero {
+  color: purple;
+  margin-top: 130px;
+  margin-left: 250px;
+  font-size: 30px;
+  background-color: lightpink;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  text-align: center;
+  padding-top: 75px;
+  display: block;
+  position: absolute;
+}
+
+.one {
+  color: red;
+  margin-top: 420px;
+  margin-left: 250px;
+  font-size: 30px;
+  background-color: lightpink;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  text-align: center;
+  padding-top: 75px;
+  display: block;
+  position: absolute;
+}
+
+.two {
+  color: black;
+  margin-bottom: 250px;
+  margin-left: 550px;
+  font-size: 30px;
+  background-color: lightpink;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  text-align: center;
+  padding-top: 75px;
+  display: block;
+  position: absolute;
+}
+
+.three {
+  color: green;
+  float: right;
+  margin-top: 420px;
+  margin-left: 850px;
+  font-size: 30px;
+  background-color: lightpink;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  text-align: center;
+  padding-top: 75px;
+  display: block;
+  position: absolute;
+}
+
+.four {
+  color: brown;
+  float: right;
+  margin-top: 130px;
+  margin-left: 850px;
+  font-size: 30px;
+  background-color: lightpink;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  text-align: center;
+  padding-top: 75px;
+  display: block;
+  position: absolute;
 }
