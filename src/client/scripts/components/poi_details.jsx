@@ -69,7 +69,9 @@ class POIDetails extends Component {
                 this.props.currentLocation.city,
                 selectedDetails, this.props.itinerary.itinerary)}
                 className="btn btn-primary"
-              >Add to List</button>
+              >
+                Add to List
+              </button>
             </div>
           </div>
         </div>
