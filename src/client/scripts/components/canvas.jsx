@@ -27,45 +27,73 @@ class Canvas extends Component {
   componentDidUpdate() {
     // checking for updates
     // console.log('CurrentRoot in CANVAS is', this.props);
+    // console.log(this.props.currentRoot.currentRoot);
+    // console.log(this.props.currentLocation.city);
   }
 
   render() {
     const localRoot = this.props.currentRoot.currentRoot;
     const currentCity = this.props.currentLocation.city;
-    // replace all branches with .map off of state.branchTitles array
-    // something like: .map(node => <POI nodePosition="branch">{node.type}</POI>)
+    const numberStrings = ['zero', 'one', 'two', 'three', 'four'];
+
     let canvas = null;
     if (localRoot === currentCity) {
-      canvas = (<div styleName="rootCity">
+      canvas = (
         <div>
-          <POI nodePosition="root" />
-          { this.props.branchTitles.default.map(
-          (item, index) =>
-            <POI
-              nodePosition="branch"
-              branchTitle={item.name}
-              key={index}
-              query={item.query}
-              index={index}
-            />,
+          <nav className="navbar navbar-inverse">
+            <div className="container-fluid">
+              <a className="navbar-brand" href="/">TRIP_RAPTOR
+                <span> | Planning your trip to {currentCity} city</span>
+              </a>
+            </div>
+          </nav>
+          <div styleName="branchRoot">
+            <POI nodePosition="root" />
+          </div>
+          <div>
+            { this.props.branchTitles.default.map(
+            (item, index) => (
+              <div styleName={numberStrings[index]}>
+                <POI
+                  nodePosition="branch"
+                  branchTitle={item.name}
+                  key={index}
+                  query={item.query}
+                />
+              </div>
+              ),
             )}
+          </div>
         </div>
-      </div>
       );
     } else if (localRoot !== currentCity && localRoot) {
       canvas = (
-        <div styleName="titles">
-          <POI nodePosition="root" />
-          { this.props.branchTitles.branchTitles.map(
-            (item, index) =>
-              <POI
-                nodePosition="leaf"
-                details={item}
-                branchTitle={item.name}
-                key={index}
-                query={item.place_id}
-              />)
-          }
+        <div>
+          <nav className="navbar navbar-inverse">
+            <div className="container-fluid">
+              <a className="navbar-brand" href="/">TRIP_RAPTOR
+                <span> | Choosing {localRoot} you like</span>
+              </a>
+            </div>
+          </nav>
+          <div styleName="branchRoot">
+            <POI nodePosition="root" />
+          </div>
+          <div>
+            { this.props.branchTitles.branchTitles.map(
+            (item, index) => (
+              <div styleName={numberStrings[index]}>
+                <POI
+                  nodePosition="leaf"
+                  branchTitle={item.name}
+                  key={index}
+                  query={item.place_id}
+                  details={item}
+                />
+              </div>
+              ),
+            )}
+          </div>
         </div>
       );
     } else {
