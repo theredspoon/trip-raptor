@@ -15,7 +15,6 @@ import '../../styles/poi.scss';
 const mapStateToProps = state =>
   // check state
   ({
-    // branchTitles needs to be an array
     currentLocation: state.currentLocation,
     currentRoot: state.currentRoot,
     branchTitles: state.branchTitles,
@@ -44,7 +43,6 @@ const mapDispatchToProps = dispatch => ({
   },
   // TODO: allow dynamic routing
   goBack: (current, destination) => {
-    console.log('trying to go to', destination);
     if (current !== destination) {
       dispatch(UpdateRoot.updateRoot(destination));
     } else {
@@ -55,16 +53,11 @@ const mapDispatchToProps = dispatch => ({
 
 
 class POI extends Component {
-  /* constructor(props) {
-    super(props);
-    this.state = { isPopoverOpen: false }
-  } */
 
   componentWillMount() {
-    console.log('Maybe leaf?', this.props);
-    if (this.props.nodePosition === 'root') {
-      // this.setState({ name: this.props.root.currentRoot });
-    }
+    // if (this.props.nodePosition === 'root') {
+
+    // }
     if (this.props.nodePosition === 'branch') {
       this.props.onBranchCreation(this.props.query);
     }
@@ -120,11 +113,9 @@ class POI extends Component {
         );
     } else {
       // if promise is not returned (and all other cases)
-      status = <div>{this.props.branchTitle} nope</div>;
+      status = <div>{this.props.branchTitle} Loading...</div>;
     }
     return (
-      // circle with this.state.name centered
-      // fix results to grab results from state
       <div>
         { status }
       </div>
