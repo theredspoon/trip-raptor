@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { push, goBack, go } from 'react-router-redux';
-import { Overlay, Popover } from 'react-bootstrap';
+import { Overlay, Popover, OverlayTrigger, Button } from 'react-bootstrap';
 import * as POIInfo from '../actions/fetch_poi_info_action';
 import * as UpdateRoot from '../actions/update_root_action';
 import * as UpdateBranch from '../actions/update_branch_titles_action';
@@ -28,8 +28,8 @@ const mapDispatchToProps = dispatch => ({
   onBranchCreation: (branchTitle) => {
     dispatch(POIInfo.fetchPoiInfo(branchTitle));
   },
-  onLeafCreation: (branchTitle) => {
-    dispatch(POIInfo.fetchPoiDetails(branchTitle));
+  onLeafCreation: (placeid, index) => {
+    dispatch(POIInfo.fetchPoiDetails(placeid, index));
   },
   onUpdateRoot: (name, query) => {
     dispatch(UpdateRoot.updateRoot(name));
@@ -56,6 +56,7 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
+
 class POI extends Component {
   /* constructor(props) {
     super(props);
@@ -72,7 +73,7 @@ class POI extends Component {
     }
     if (this.props.nodePosition === 'leaf') {
       console.log('This is a leaf prop', this.props);
-      this.props.onLeafCreation(this.props.query);
+      this.props.onLeafCreation(this.props.query, index);
     }
   }
   // does some/all of functionality below get handled by Redux reducers?
@@ -86,6 +87,11 @@ class POI extends Component {
     const hasPOIProp = this.props.POIs[this.props.query];
     const localRoot = this.props.currentRoot.currentRoot;
     const currentCity = this.props.currentLocation.city;
+    const showDetail = (
+      <Popover id="popover-trigger-click">
+        <POIDetails index={this.props.index} details={this.props.details} />
+      </Popover>
+);
 
     let status = null;
     if (this.props.nodePosition === 'root') {
@@ -117,33 +123,29 @@ class POI extends Component {
             </div>
           </div>
         );
-    } else if (this.props.currentClickedLeaf.currentClickedLeaf === this.props.query) {
-      // if promise is returned inside of leaf
-      // does HTML in tooltip need to be added as an attribute?
+    }
+    // else if (this.props.currentClickedLeaf.currentClickedLeaf === this.props.query) {
+    //   // if promise is returned inside of leaf
+    //   // does HTML in tooltip need to be added as an attribute?
+    //   status = (
+    //     <div>
+    //       <div onClick={() => this.props.onLeafClick('', localRoot)}>
+    //         {this.props.branchTitle}
+    //       </div>
+
+    //       <div
+    //         data-toggle="popover" data-trigger="focus hover" data-html="true" data-content={<POIDetails details={this.props.details} />} data-placement="left" data-template='<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+    //       />
+    //     </div>
+    //     );
+    // }
+    else if (this.props.nodePosition === 'leaf') {
       status = (
-        <div>
-          <div onClick={() => this.props.onLeafClick('', localRoot)}>
+        <OverlayTrigger trigger="click" delayShow={2800} placement="bottom" overlay={showDetail} rootClose>
+          <div onClick={() => this.props.onLeafClick(this.props.query, localRoot, this.props.query)}>
             {this.props.branchTitle}
           </div>
-          <Overlay
-            show={this.props.currentClickedLeaf.currentClickedLeaf === this.props.query}
-            container={this}
-          >
-            <Popover
-              id="popover-position-top"
-              title="Popover top"
-              placement="top"
-            >
-              <POIDetails details={this.props.details} />
-            </Popover>
-          </Overlay>
-        </div>
-        );
-    } else if (this.props.nodePosition === 'leaf') {
-      status = (
-        <div onClick={() => this.props.onLeafClick(this.props.query, localRoot, this.props.query)}>
-          {this.props.branchTitle}
-        </div>
+        </OverlayTrigger>
         );
     } else {
       // if promise is not returned (and all other cases)

@@ -1,8 +1,28 @@
 .poiDetail {
-  background-color: white;
-  border-radius: 15px;
+  background-color: slategrey;
+  border-radius: 12px;
+  color: white;
+  display: inline-block;
+  font-size: 14px;
+  position: absolute;
+  text-align: left;
+  padding-left: 18px;
+}
+
+h4 {
   color: darkblue;
-  display: inline;
-  margin-top: 30px;
-  font-size: 20px;
+}
+
+.webDetailLink {
+  color: darkblue
+}
+
+.picDetail {
+  margin-top: 25px;
+  margin-left: 80px;
+}
+
+.addButton {
+  margin-left: 25px;
+  margin-bottom: 20px;
 }

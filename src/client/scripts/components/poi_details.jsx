@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as AddToItinerary from '../actions/add_to_itinerary_action';
 import * as RemoveFromItinerary from '../actions/remove_from_itinerary_action';
+import * as POIInfo from '../actions/fetch_poi_info_action';
+
 
 // needs to dispatch to itinerary
 
@@ -31,12 +33,17 @@ const mapDispatchToProps = dispatch =>
         [currentCity]: POIsInCity,
       }));
     },
+    fetchDetails: (placeId, index) => {
+      dispatch(POIInfo.fetchPoiDetails(placeId, index));
+    },
   });
 
 class POIDetails extends Component {
   // need a way to handle displaying different relevant data
   // (the data to display for hotels may be different than from restaurants)
-
+  componentWillMount() {
+    this.props.fetchDetails(this.props.details.place_id, this.props.index);
+  }
 
   // todo add src tag to img.
   // current info within render is example data. change as needed
@@ -68,9 +75,9 @@ class POIDetails extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    
+
   }
-  
+
 
   render() {
     const selectedDetails = this.props.details;
@@ -84,7 +91,8 @@ class POIDetails extends Component {
       image = (
         <img
           role="presentation"
-          src={`${selectedDetails.photos[0].getUrl({ maxWidth: 250 })}`}
+          styleName="picDetail"
+          src={`${selectedDetails.photos[0].getUrl({ maxWidth: 250, maxHeight: 250 })}`}
         />
       );
     } else {
@@ -99,23 +107,18 @@ class POIDetails extends Component {
 
     return (
       <div>
-
         <div styleName="poiDetail">
           <div >
             { image }
-            <h2>{selectedDetails.name}</h2>
-            Rating: {selectedDetails.rating}
-            <div>
-              <ul>
-                <li>Address: {selectedDetails.formatted_address}</li>
-                <li>Phone Number: {selectedDetails.formatted_phone_number}</li>
-                <li>International Phone Number: {selectedDetails.international_phone_number}</li>
-              </ul>
-            </div>
-            {selectedDetails.website}
-            <div>
-            { button }
-            </div>
+            <h3>{selectedDetails.name}</h3>
+            <h4>Rating: {selectedDetails.rating}</h4>
+            <ul>
+              <li>Address: {selectedDetails.formatted_address}</li>
+              <li>Phone Number: {selectedDetails.formatted_phone_number}</li>
+              <li>International Phone Number: {selectedDetails.international_phone_number}</li>
+              <li>Website: <a target="_blank" rel="noopener noreferrer" href={selectedDetails.website} styleName="webDetailLink"> {selectedDetails.website} </a> </li>
+            </ul>
+            {button}
           </div>
         </div>
       </div>

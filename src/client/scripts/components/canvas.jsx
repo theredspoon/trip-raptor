@@ -59,6 +59,7 @@ class Canvas extends Component {
                   branchTitle={item.name}
                   key={index}
                   query={item.query}
+
                 />
               </div>
               ),
@@ -89,6 +90,7 @@ class Canvas extends Component {
                   key={index}
                   query={item.place_id}
                   details={item}
+                  index={index}
                 />
               </div>
               ),

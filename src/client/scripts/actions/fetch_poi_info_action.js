@@ -4,7 +4,7 @@ const service = new google.maps.places.PlacesService(document.createElement('con
 
 export const FETCH_POI_INFO_SUCCESS = 'FETCH_POI_INFO_SUCCESS';
 export const FETCH_POI_INFO_ERROR = 'FETCH_POI_INFO_ERROR';
-export const FETCH_POI_DETAILS_SUCCESS = 'FETCH_POI_DETAILS_SUCESSS';
+export const FETCH_POI_DETAILS_SUCCESS = 'FETCH_POI_DETAILS_SUCCESS';
 export const FETCH_POI_DETAILS_ERROR = 'FETCH_POI_DETAILS_ERROR';
 
 function fetchPoiInfoSuccess(data) {
@@ -56,8 +56,9 @@ function fetchPoiDetailsError(err) {
   };
 }
 
-export function fetchPoiDetails(poiID) {
-  return function (dispatch) {
+export function fetchPoiDetails(poiID, index) {
+  return function (dispatch, getState) {
+    const { branchTitles } = getState();
     const search = {
       placeId: poiID,
     };
@@ -65,8 +66,9 @@ export function fetchPoiDetails(poiID) {
       if (err) {
         dispatch(fetchPoiDetailsError(err));
       }
-      const result = {};
-      result[poiID] = res;
+      // console.log('in details', res);
+      const result = branchTitles.branchTitles.slice(0, index).concat(res, branchTitles.branchTitles.slice(index + 1));
+      console.log('in details', result);
       dispatch(fetchPoiDetailsSuccess(result));
     });
   };
