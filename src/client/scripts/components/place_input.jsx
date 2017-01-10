@@ -10,7 +10,7 @@ import * as UpdateRoot from '../actions/update_root_action';
 
 import '../../styles/place_input.scss';
 const mapDispatchToProps = dispatch => ({
-  onInputSubmit: (place, component) => {
+  onInputSubmit: (place) => {
     dispatch(UpdateCurrentLocation.updateCurrentLocation(place));
     dispatch(UpdateRoot.updateRoot(place.name));
     dispatch(push('/city'));
@@ -36,7 +36,7 @@ class PlaceInput extends Component {
             if (!place.place_id) {
               console.log('Please passing in the right City...');
             } else {
-              this.props.onInputSubmit(place, this.props);
+              this.props.onInputSubmit(place);
             }
           }}
         />
@@ -46,7 +46,6 @@ class PlaceInput extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('This is the state inside the PlaceInput', state);
   return {
     currentLocation: state.currentLocation,
   };
@@ -57,7 +56,6 @@ PlaceInput.propTypes = {
     city: React.PropTypes.string,
     id: React.PropTypes.string,
     boundary: React.PropTypes.objectOf(React.PropTypes.objectOf(React.PropTypes.number)),
-    // FIX ME: find the proper shape ====> Is it a Number PropTypes??
   }).isRequired,
 };
 

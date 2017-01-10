@@ -11,16 +11,16 @@ import { updateRoot } from '../actions/update_root_action';
 
 import '../../styles/canvas.scss';
 
-const mapStateToProps = (state) => 
+const mapStateToProps = state =>
   // check state
   // console.log('This is state inside of Canvas', state);
 
    ({
-    currentLocation: state.currentLocation,
-    branchTitles: state.branchTitles,
-    POIs: state.POIs,
-    currentRoot: state.currentRoot,
-  });
+     currentLocation: state.currentLocation,
+     branchTitles: state.branchTitles,
+     POIs: state.POIs,
+     currentRoot: state.currentRoot,
+   });
 
 class Canvas extends Component {
   componentDidUpdate() {
@@ -107,14 +107,11 @@ class Canvas extends Component {
   }
 }
 
-// pulls currentCity
-
 // Canvas.propTypes = {
 //   currentLocation: PropTypes.shape({
 //     city: React.PropTypes.string,
 //     id: React.PropTypes.string,
 //     boundary: React.PropTypes.objectOf(React.PropTypes.objectOf(React.PropTypes.number)),
-//     // FIX ME: find the proper shape ====> Is it a Number PropTypes??
 //   }).isRequired,
 //   branchTitles: PropTypes.arrayOf(React.PropTypes.string).isRequired,
 // };
