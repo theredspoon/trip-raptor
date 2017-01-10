@@ -19,13 +19,25 @@ const mapStatetoProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onRemoveFromListClick: (POIindex, cityOfPOI, oldItinerary) => {
-    const updatedItinerary =
+    const updatedCityPOIArray =
       [...oldItinerary[cityOfPOI].slice(0, POIindex),
-        ...oldItinerary[cityOfPOI].slice(POIindex+1)];
-    dispatch(RemoveFromItinerary.removeFromItinerary({
-      ...oldItinerary,
-      [cityOfPOI]: updatedItinerary
-    }));
+        ...oldItinerary[cityOfPOI].slice(POIindex + 1)];
+
+    // property is empty, remove it
+
+    const newItinerary = oldItinerary;
+    if (updatedCityPOIArray.length <= 0) {
+      delete newItinerary[cityOfPOI];
+      dispatch(RemoveFromItinerary.removeFromItinerary({
+        ...newItinerary,
+      }));
+    } else {
+      dispatch(RemoveFromItinerary.removeFromItinerary({
+        ...oldItinerary,
+        [cityOfPOI]: updatedCityPOIArray,
+      }));
+    }
+
   },
 });
 
@@ -38,12 +50,24 @@ class Itinerary extends Component {
     // this.state.itinerary = {city1: [POI1, POI2...], city2: [POI3, POI4..]}
   }
 
+  removeButton(index, city) {
+    return (
+      <button
+        className="btn btn-danger"
+        onClick={() =>
+          this.props.onRemoveFromListClick(
+            index, city, this.props.itinerary.itinerary)}
+      >
+        Remove From List
+      </button>
+    );
+  }
+
   render() {
     const itineraryLength = Object.keys(this.props.itinerary.itinerary).length;
-    console.log('itineraryLength is', itineraryLength);
     const cities = Object.keys(this.props.itinerary.itinerary);
     console.log('cities are ', cities);
-    // if itinerary is empty, this container does not display
+    // if itinerary is empty, with no properties, this container does not display
     if (itineraryLength <= 0) {
       return <div />;
     }
@@ -61,14 +85,7 @@ class Itinerary extends Component {
                       {POI.formatted_phone_numberphoneNumber}<br />
                       {POI.international_phone_number}<br />
                       {POI.formatted_address}<br />
-                      <button
-                        className="btn btn-danger"
-                        onClick={() =>
-                          this.props.onRemoveFromListClick(
-                            index, city, this.props.itinerary.itinerary)}
-                      >
-                        Remove From List
-                      </button>
+                      { this.removeButton(index, city) }
                     </li>
                   </ul>
                 </div>
