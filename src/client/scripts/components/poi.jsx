@@ -28,9 +28,6 @@ const mapDispatchToProps = dispatch => ({
   onBranchCreation: (branchTitle) => {
     dispatch(POIInfo.fetchPoiInfo(branchTitle));
   },
-  onLeafCreation: (placeid, index) => {
-    dispatch(POIInfo.fetchPoiDetails(placeid, index));
-  },
   onUpdateRoot: (name, query) => {
     dispatch(UpdateRoot.updateRoot(name));
     dispatch(UpdateBranch.updateBranchTitles(query));
@@ -71,17 +68,7 @@ class POI extends Component {
     if (this.props.nodePosition === 'branch') {
       this.props.onBranchCreation(this.props.query);
     }
-    if (this.props.nodePosition === 'leaf') {
-      console.log('This is a leaf prop', this.props);
-      this.props.onLeafCreation(this.props.query, index);
-    }
   }
-  // does some/all of functionality below get handled by Redux reducers?
-
-  // for component state handling popover
-  /* onHover(e) {
-    this.setState({isPopoverOpen: !this.state.isPopoverOpen });
-  } */
 
   render() {
     const hasPOIProp = this.props.POIs[this.props.query];
@@ -123,23 +110,7 @@ class POI extends Component {
             </div>
           </div>
         );
-    }
-    // else if (this.props.currentClickedLeaf.currentClickedLeaf === this.props.query) {
-    //   // if promise is returned inside of leaf
-    //   // does HTML in tooltip need to be added as an attribute?
-    //   status = (
-    //     <div>
-    //       <div onClick={() => this.props.onLeafClick('', localRoot)}>
-    //         {this.props.branchTitle}
-    //       </div>
-
-    //       <div
-    //         data-toggle="popover" data-trigger="focus hover" data-html="true" data-content={<POIDetails details={this.props.details} />} data-placement="left" data-template='<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
-    //       />
-    //     </div>
-    //     );
-    // }
-    else if (this.props.nodePosition === 'leaf') {
+    } else if (this.props.nodePosition === 'leaf') {
       status = (
         <OverlayTrigger trigger="click" delayShow={2800} placement="bottom" overlay={showDetail} rootClose>
           <div onClick={() => this.props.onLeafClick(this.props.query, localRoot, this.props.query)}>
