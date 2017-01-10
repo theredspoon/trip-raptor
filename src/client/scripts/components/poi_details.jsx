@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as AddToItinerary from '../actions/add_to_itinerary_action';
+import * as RemoveFromItinerary from '../actions/remove_from_itinerary_action';
 
 // needs to dispatch to itinerary
 
@@ -10,6 +11,7 @@ import '../../styles/poi_details.scss';
 
 const mapStateToProps = state =>
   ({
+    currentCity: state.currentLocation.city,
     itinerary: state.itinerary,
     currentLocation: state.currentLocation,
   });
@@ -18,7 +20,6 @@ const mapDispatchToProps = dispatch =>
   ({
     onAddToListClick: (currentCity, selectedDetails, oldItinerary) => {
       // logic for handling new city vs existing city
-      console.log('Old Itinerary is ', oldItinerary);
       const POIsInCity =
       // if currentCity is defined
         oldItinerary[currentCity] ?
@@ -41,7 +42,7 @@ class POIDetails extends Component {
   // current info within render is example data. change as needed
     // example src=`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.props.photos[0].photo_reference}&key=AIzaSyC535s39VzBWKFSXSlMaOllvk5ocBGNh9E`
 
-  AddButton(selectedDetails, itinerary) {
+  addButton(selectedDetails, itinerary) {
     return (<button
       onClick={() =>
       this.props.onAddToListClick(
@@ -53,42 +54,55 @@ class POIDetails extends Component {
     </button>);
   }
 
+  removeButton(index, city) {
+    return (
+      <button
+        className="btn btn-danger"
+        onClick={() =>
+          this.props.onRemoveFromListClick(
+            index, city, this.props.itinerary.itinerary)}
+      >
+        Remove From List
+      </button>
+    );
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    
+  }
+  
+
   render() {
     const selectedDetails = this.props.details;
     const itinerary = this.props.itinerary.itinerary;
-    let poiDetails = null;
+    let image = null;
+    const cityArray = itinerary[this.props.currentCity] || [];
+    let button = null;
+
 
     if (selectedDetails.photos) {
-      poiDetails = (
-        <div
-          styleName="poiDetail"
-        >
-          <div>
-            <img
-              src={`${selectedDetails.photos[0].getUrl({ maxWidth: 250 })}`}
-            />
-            <h2>{selectedDetails.name}</h2>
-            Rating: {selectedDetails.rating}
-            <div>
-              <ul>
-                <li>Address: {selectedDetails.formatted_address}</li>
-                <li>Phone Number: {selectedDetails.formatted_phone_number}</li>
-                <li>International Phone Number: {selectedDetails.international_phone_number}</li>
-              </ul>
-            </div>
-            {selectedDetails.website}
-            <div>
-              { this.AddButton(selectedDetails, itinerary) };
-            </div>
-          </div>
-        </div>
+      image = (
+        <img
+          role="presentation"
+          src={`${selectedDetails.photos[0].getUrl({ maxWidth: 250 })}`}
+        />
       );
     } else {
-      poiDetails = (
-        <div
-          styleName="poiDetail"
-        >
+      image = <div />;
+    }
+
+    if (cityArray && cityArray.indexOf(selectedDetails) !== -1) {
+      button = this.removeButton(cityArray.indexOf(selectedDetails), this.props.currentCity);
+    } else {
+      button = this.addButton(selectedDetails, itinerary);
+    }
+
+    return (
+      <div>
+
+        <div styleName="poiDetail">
           <div >
+            { image }
             <h2>{selectedDetails.name}</h2>
             Rating: {selectedDetails.rating}
             <div>
@@ -100,15 +114,10 @@ class POIDetails extends Component {
             </div>
             {selectedDetails.website}
             <div>
-              { this.AddButton(selectedDetails, itinerary) };
+            { button }
             </div>
           </div>
         </div>
-      );
-    }
-    return (
-      <div>
-        { poiDetails }
       </div>
     );
   }
