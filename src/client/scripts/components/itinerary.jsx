@@ -19,13 +19,25 @@ const mapStatetoProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onRemoveFromListClick: (POIindex, cityOfPOI, oldItinerary) => {
-    const updatedItinerary =
+    const updatedCityPOIArray =
       [...oldItinerary[cityOfPOI].slice(0, POIindex),
-        ...oldItinerary[cityOfPOI].slice(POIindex+1)];
-    dispatch(RemoveFromItinerary.removeFromItinerary({
-      ...oldItinerary,
-      [cityOfPOI]: updatedItinerary
-    }));
+        ...oldItinerary[cityOfPOI].slice(POIindex + 1)];
+
+    // property is empty, remove it
+
+    const newItinerary = oldItinerary;
+    if (updatedCityPOIArray.length <= 0) {
+      delete newItinerary[cityOfPOI];
+      dispatch(RemoveFromItinerary.removeFromItinerary({
+        ...newItinerary,
+      }));
+    } else {
+      dispatch(RemoveFromItinerary.removeFromItinerary({
+        ...oldItinerary,
+        [cityOfPOI]: updatedCityPOIArray,
+      }));
+    }
+
   },
 });
 
@@ -43,7 +55,7 @@ class Itinerary extends Component {
     console.log('itineraryLength is', itineraryLength);
     const cities = Object.keys(this.props.itinerary.itinerary);
     console.log('cities are ', cities);
-    // if itinerary is empty, this container does not display
+    // if itinerary is empty, with no properties, this container does not display
     if (itineraryLength <= 0) {
       return <div />;
     }
