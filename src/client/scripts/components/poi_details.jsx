@@ -74,11 +74,6 @@ class POIDetails extends Component {
     );
   }
 
-  componentWillUpdate(nextProps, nextState) {
-
-  }
-
-
   render() {
     const selectedDetails = this.props.details;
     const itinerary = this.props.itinerary.itinerary;
