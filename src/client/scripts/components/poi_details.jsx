@@ -40,9 +40,24 @@ class POIDetails extends Component {
   // todo add src tag to img.
   // current info within render is example data. change as needed
     // example src=`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.props.photos[0].photo_reference}&key=AIzaSyC535s39VzBWKFSXSlMaOllvk5ocBGNh9E`
+
+  AddButton(selectedDetails, itinerary) {
+    return (<button
+      onClick={() =>
+      this.props.onAddToListClick(
+      this.props.currentLocation.city,
+      selectedDetails, itinerary)}
+      className="btn btn-primary"
+    >
+      Add to List
+    </button>);
+  }
+
   render() {
     const selectedDetails = this.props.details;
+    const itinerary = this.props.itinerary.itinerary;
     let poiDetails = null;
+
     if (selectedDetails.photos) {
       poiDetails = (
         <div
@@ -63,15 +78,7 @@ class POIDetails extends Component {
             </div>
             {selectedDetails.website}
             <div>
-              <button
-                onClick={() =>
-                this.props.onAddToListClick(
-                this.props.currentLocation.city,
-                selectedDetails, this.props.itinerary.itinerary)}
-                className="btn btn-primary"
-              >
-                Add to List
-              </button>
+              { this.AddButton(selectedDetails, itinerary) };
             </div>
           </div>
         </div>
@@ -93,15 +100,7 @@ class POIDetails extends Component {
             </div>
             {selectedDetails.website}
             <div>
-              <button
-                onClick={() =>
-                  this.props.onAddToListClick(
-                    this.props.currentLocation.city,
-                    selectedDetails, this.props.itinerary.itinerary)}
-                className="btn btn-primary"
-              >
-                Add to List
-              </button>
+              { this.AddButton(selectedDetails, itinerary) };
             </div>
           </div>
         </div>
