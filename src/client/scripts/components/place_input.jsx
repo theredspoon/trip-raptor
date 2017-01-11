@@ -32,6 +32,7 @@ class PlaceInput extends Component {
           styleName="autoForm"
           ref="AutoForm"
           placeholder="_____________________________"
+          componentRestrictions={{country: []}}
           onPlaceSelected={(place) => {
             if (!place.place_id) {
               console.log('Please passing in the right City...');
