@@ -14,7 +14,7 @@
     "start-appserver": "nodemon --inspect --watch src/server",
     "webpack-dev": "webpack-dev-server --config webpack.dev.config.js --progress --colors --display-error-details --no-info --inline --hot  --content-base dist/",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack-production.config.js -p"
+    "build": "webpack --config webpack.prod.config.js -p"
   },
   "repository": {
     "type": "git",
