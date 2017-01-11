@@ -6,55 +6,11 @@ import RemoveButton from '../containers/removeButton';
 
 import '../../styles/itinerary.scss';
 
-// TODO: incorporate 'REMOVE_FROM_ITINERARY' action and dispatch
-// TODO: add Share component
-// TODO: styling
-
-// actions: REMOVE_FROM_ITINERARY
-
-
 const mapStatetoProps = state => ({
   itinerary: state.itinerary,
 });
-// mapDispatchToProps (for remove from itinerary)
-
-// const mapDispatchToProps = dispatch => ({
-//   onRemoveFromListClick: (POIindex, cityOfPOI, oldItinerary) => {
-//     const updatedCityPOIArray =
-//       [...oldItinerary[cityOfPOI].slice(0, POIindex),
-//         ...oldItinerary[cityOfPOI].slice(POIindex + 1)];
-
-//     // property is empty, remove it
-
-//     const newItinerary = oldItinerary;
-//     if (updatedCityPOIArray.length <= 0) {
-//       delete newItinerary[cityOfPOI];
-//       dispatch(RemoveFromItinerary.removeFromItinerary({
-//         ...newItinerary,
-//       }));
-//     } else {
-//       dispatch(RemoveFromItinerary.removeFromItinerary({
-//         ...oldItinerary,
-//         [cityOfPOI]: updatedCityPOIArray,
-//       }));
-//     }
-//   },
-// });
 
 class Itinerary extends Component {
-  // removeButton(index, city) {
-  //   return (
-  //     <button
-  //       className="btn btn-danger"
-  //       onClick={() =>
-  //         this.props.onRemoveFromListClick(
-  //           index, city, this.props.itinerary.itinerary)}
-  //     >
-  //       Remove From List
-  //     </button>
-  //   );
-  // }
-
   render() {
     const itineraryLength = Object.keys(this.props.itinerary.itinerary).length;
     const cities = Object.keys(this.props.itinerary.itinerary);
