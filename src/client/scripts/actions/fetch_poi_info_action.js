@@ -66,7 +66,7 @@ export function fetchPoiDetails(poiID, index) {
       if (err) {
         dispatch(fetchPoiDetailsError(err));
       }
-      // Updating branchTitles w/o mutation through slice and concat
+      // Updating branchTitles w/o mutation through slice and spread operator
       const result = [...branchTitles.branchTitles.slice(0, index), res, ...branchTitles.branchTitles.slice(index + 1)];
       dispatch(fetchPoiDetailsSuccess(result));
     });
