@@ -48,7 +48,6 @@ const mapDispatchToProps = dispatch =>
 
 class RemoveButton extends Component {
   render() {
-    const city = this.props.currentCity;
     const POI = this.props.details;
     const itinerary = this.props.itinerary.itinerary;
 
@@ -57,7 +56,7 @@ class RemoveButton extends Component {
         className="btn btn-danger"
         onClick={() =>
           this.props.onRemoveFromListClick(
-            this.props.index, city, itinerary, POI)}
+            this.props.index, this.props.city, itinerary, POI)}
       >
         Remove From List
       </button>

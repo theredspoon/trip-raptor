@@ -76,7 +76,7 @@ class Itinerary extends Component {
                       {POI.formatted_phone_numberphoneNumber}<br />
                       {POI.international_phone_number}<br />
                       {POI.formatted_address}<br />
-                      <RemoveButton details={POI} index={index} />
+                      <RemoveButton details={POI} city={city} index={index} />
                     </li>
                   </ul>
                 </div>

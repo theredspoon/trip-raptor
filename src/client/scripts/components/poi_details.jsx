@@ -96,7 +96,7 @@ class POIDetails extends Component {
     }
 
     if (cityArray && this.isInsideItinerary(cityArray, selectedDetails)) {
-      button = <RemoveButton index={cityArray.indexOf(selectedDetails)} details={selectedDetails} />;
+      button = <RemoveButton index={cityArray.indexOf(selectedDetails)} city={this.props.currentCity} details={selectedDetails} />;
     } else {
       button = this.addButton(selectedDetails, itinerary);
     }
