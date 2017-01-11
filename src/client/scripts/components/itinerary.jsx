@@ -1,72 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as RemoveFromItinerary from '../actions/remove_from_itinerary_action';
+import RemoveButton from '../containers/removeButton';
 // import Share from './share';
 
 import '../../styles/itinerary.scss';
 
-// TODO: incorporate 'REMOVE_FROM_ITINERARY' action and dispatch
-// TODO: add Share component
-// TODO: styling
-
-// actions: REMOVE_FROM_ITINERARY
-
-
 const mapStatetoProps = state => ({
   itinerary: state.itinerary,
 });
-// mapDispatchToProps (for remove from itinerary)
-
-const mapDispatchToProps = dispatch => ({
-  onRemoveFromListClick: (POIindex, cityOfPOI, oldItinerary) => {
-    const updatedCityPOIArray =
-      [...oldItinerary[cityOfPOI].slice(0, POIindex),
-        ...oldItinerary[cityOfPOI].slice(POIindex + 1)];
-
-    // property is empty, remove it
-
-    const newItinerary = oldItinerary;
-    if (updatedCityPOIArray.length <= 0) {
-      delete newItinerary[cityOfPOI];
-      dispatch(RemoveFromItinerary.removeFromItinerary({
-        ...newItinerary,
-      }));
-    } else {
-      dispatch(RemoveFromItinerary.removeFromItinerary({
-        ...oldItinerary,
-        [cityOfPOI]: updatedCityPOIArray,
-      }));
-    }
-
-  },
-});
 
 class Itinerary extends Component {
-  constructor(props) {
-    super(props);
-
-    // this container receives props from Redux
-    // this.state.itinerary = {}; (initial state)
-    // this.state.itinerary = {city1: [POI1, POI2...], city2: [POI3, POI4..]}
-  }
-
-  removeButton(index, city) {
-    return (
-      <button
-        className="btn btn-danger"
-        onClick={() =>
-          this.props.onRemoveFromListClick(
-            index, city, this.props.itinerary.itinerary)}
-      >
-        Remove From List
-      </button>
-    );
-  }
-
   render() {
     const itineraryLength = Object.keys(this.props.itinerary.itinerary).length;
     const cities = Object.keys(this.props.itinerary.itinerary);
-    console.log('cities are ', cities);
     // if itinerary is empty, with no properties, this container does not display
     if (itineraryLength <= 0) {
       return <div />;
@@ -85,7 +32,7 @@ class Itinerary extends Component {
                       {POI.formatted_phone_numberphoneNumber}<br />
                       {POI.international_phone_number}<br />
                       {POI.formatted_address}<br />
-                      { this.removeButton(index, city) }
+                      <RemoveButton details={POI} city={city} index={index} />
                     </li>
                   </ul>
                 </div>
@@ -116,4 +63,4 @@ Itinerary.propTypes = {
   // propname: PropTypes.string.isRequired,
 };
 
-export default connect(mapStatetoProps, mapDispatchToProps)(Itinerary);
+export default connect(mapStatetoProps /* mapDispatchToProps*/)(Itinerary);
