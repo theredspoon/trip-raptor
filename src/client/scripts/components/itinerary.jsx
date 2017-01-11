@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as RemoveFromItinerary from '../actions/remove_from_itinerary_action';
 import RemoveButton from '../containers/removeButton';
 // import Share from './share';
 
