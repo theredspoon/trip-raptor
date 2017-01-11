@@ -11,24 +11,21 @@ import { updateRoot } from '../actions/update_root_action';
 
 import '../../styles/canvas.scss';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state =>
   // check state
-  console.log('This is state inside of Canvas', state);
+  // console.log('This is state inside of Canvas', state);
 
-  return {
-    currentLocation: state.currentLocation,
-    branchTitles: state.branchTitles,
-    POIs: state.POIs,
-    currentRoot: state.currentRoot,
-  };
-};
+   ({
+     currentLocation: state.currentLocation,
+     branchTitles: state.branchTitles,
+     POIs: state.POIs,
+     currentRoot: state.currentRoot,
+   });
 
 class Canvas extends Component {
   componentDidUpdate() {
     // checking for updates
     // console.log('CurrentRoot in CANVAS is', this.props);
-    // console.log(this.props.currentRoot.currentRoot);
-    // console.log(this.props.currentLocation.city);
   }
 
   render() {
@@ -89,6 +86,7 @@ class Canvas extends Component {
                   key={index}
                   query={item.place_id}
                   details={item}
+                  index={index}
                 />
               </div>
               ),
@@ -108,14 +106,11 @@ class Canvas extends Component {
   }
 }
 
-// pulls currentCity
-
 // Canvas.propTypes = {
 //   currentLocation: PropTypes.shape({
 //     city: React.PropTypes.string,
 //     id: React.PropTypes.string,
 //     boundary: React.PropTypes.objectOf(React.PropTypes.objectOf(React.PropTypes.number)),
-//     // FIX ME: find the proper shape ====> Is it a Number PropTypes??
 //   }).isRequired,
 //   branchTitles: PropTypes.arrayOf(React.PropTypes.string).isRequired,
 // };

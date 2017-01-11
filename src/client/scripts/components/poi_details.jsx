@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as AddToItinerary from '../actions/add_to_itinerary_action';
 import * as RemoveFromItinerary from '../actions/remove_from_itinerary_action';
+import * as POIInfo from '../actions/fetch_poi_info_action';
+
 
 // needs to dispatch to itinerary
 
@@ -31,13 +33,17 @@ const mapDispatchToProps = dispatch =>
         [currentCity]: POIsInCity,
       }));
     },
+    fetchDetails: (placeId, index) => {
+      dispatch(POIInfo.fetchPoiDetails(placeId, index));
+    },
   });
 
 class POIDetails extends Component {
   // need a way to handle displaying different relevant data
   // (the data to display for hotels may be different than from restaurants)
-
-
+  componentWillMount() {
+    this.props.fetchDetails(this.props.details.place_id, this.props.index);
+  }
   // todo add src tag to img.
   // current info within render is example data. change as needed
     // example src=`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.props.photos[0].photo_reference}&key=AIzaSyC535s39VzBWKFSXSlMaOllvk5ocBGNh9E`
@@ -67,10 +73,15 @@ class POIDetails extends Component {
     );
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    
+  // Checking unique id exists in itinerary
+  isInsideItinerary(arr, poi) {
+    for (let i = 0; i < arr.length; i++) {
+      if (poi.place_id === arr[i].place_id) {
+        return true;
+      }
+    }
+    return false;
   }
-  
 
   render() {
     const selectedDetails = this.props.details;
@@ -82,16 +93,22 @@ class POIDetails extends Component {
 
     if (selectedDetails.photos) {
       image = (
-        <img
-          role="presentation"
-          src={`${selectedDetails.photos[0].getUrl({ maxWidth: 250 })}`}
-        />
+        <div>
+          {selectedDetails.photos.map(pic => (
+            <img
+              role="presentation"
+              styleName="picDetail"
+              src={`${pic.getUrl({ maxWidth: 250, maxHeight: 250 })}`}
+            />
+          ),
+          )}
+        </div>
       );
     } else {
       image = <div />;
     }
 
-    if (cityArray && cityArray.indexOf(selectedDetails) !== -1) {
+    if (cityArray && this.isInsideItinerary(cityArray, selectedDetails)) {
       button = this.removeButton(cityArray.indexOf(selectedDetails), this.props.currentCity);
     } else {
       button = this.addButton(selectedDetails, itinerary);
@@ -99,23 +116,18 @@ class POIDetails extends Component {
 
     return (
       <div>
-
         <div styleName="poiDetail">
           <div >
             { image }
-            <h2>{selectedDetails.name}</h2>
-            Rating: {selectedDetails.rating}
-            <div>
-              <ul>
-                <li>Address: {selectedDetails.formatted_address}</li>
-                <li>Phone Number: {selectedDetails.formatted_phone_number}</li>
-                <li>International Phone Number: {selectedDetails.international_phone_number}</li>
-              </ul>
-            </div>
-            {selectedDetails.website}
-            <div>
-            { button }
-            </div>
+            <h3>{selectedDetails.name}</h3>
+            <h4>Rating: {selectedDetails.rating}</h4>
+            <ul>
+              <li>Address: {selectedDetails.formatted_address}</li>
+              <li>Phone Number: {selectedDetails.formatted_phone_number}</li>
+              <li>International Phone Number: {selectedDetails.international_phone_number}</li>
+              <li>Website: <a target="_blank" rel="noopener noreferrer" href={selectedDetails.website} styleName="webDetailLink"> {selectedDetails.website} </a> </li>
+            </ul>
+            {button}
           </div>
         </div>
       </div>

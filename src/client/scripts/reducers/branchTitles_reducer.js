@@ -12,6 +12,10 @@ const branchTitles = (state = intialState, action) => {
       return Object.assign({}, state, {
         branchTitles: action.payload,
       });
+    case 'FETCH_POI_DETAILS_SUCCESS' :
+      return Object.assign({}, state, {
+        branchTitles: action.payload,
+      });
     default:
       return state;
   }

@@ -65,6 +65,7 @@
     "postcss-cssnext": "^2.9.0",
     "postcss-loader": "^1.2.1",
     "react": "^15.4.1",
+    "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.1",
     "react-google-autocomplete": "^1.0.11",
     "react-redux": "^5.0.1",
@@ -77,6 +78,7 @@
     "sass-resources-loader": "^1.1.0",
     "sequelize": "^3.28.0",
     "style-loader": "^0.13.1",
+    "tether": "^1.4.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0",
     "webpack-dotenv-plugin": "^1.4.0"
