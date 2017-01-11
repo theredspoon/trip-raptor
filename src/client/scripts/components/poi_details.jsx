@@ -44,7 +44,6 @@ class POIDetails extends Component {
   componentWillMount() {
     this.props.fetchDetails(this.props.details.place_id, this.props.index);
   }
-
   // todo add src tag to img.
   // current info within render is example data. change as needed
     // example src=`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.props.photos[0].photo_reference}&key=AIzaSyC535s39VzBWKFSXSlMaOllvk5ocBGNh9E`
@@ -74,6 +73,16 @@ class POIDetails extends Component {
     );
   }
 
+  // Checking unique id exists in itinerary
+  checkIfInsideItinerary(arr, poi) {
+    for (let i = 0; i < arr.length; i++) {
+      if (poi.place_id === arr[i].place_id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   render() {
     const selectedDetails = this.props.details;
     const itinerary = this.props.itinerary.itinerary;
@@ -84,17 +93,22 @@ class POIDetails extends Component {
 
     if (selectedDetails.photos) {
       image = (
-        <img
-          role="presentation"
-          styleName="picDetail"
-          src={`${selectedDetails.photos[0].getUrl({ maxWidth: 250, maxHeight: 250 })}`}
-        />
+        <div>
+          {selectedDetails.photos.map(pic => (
+            <img
+              role="presentation"
+              styleName="picDetail"
+              src={`${pic.getUrl({ maxWidth: 250, maxHeight: 250 })}`}
+            />
+          ),
+          )}
+        </div>
       );
     } else {
       image = <div />;
     }
 
-    if (cityArray && cityArray.indexOf(selectedDetails) !== -1) {
+    if (cityArray && this.checkIfInsideItinerary(cityArray, selectedDetails)) {
       button = this.removeButton(cityArray.indexOf(selectedDetails), this.props.currentCity);
     } else {
       button = this.addButton(selectedDetails, itinerary);

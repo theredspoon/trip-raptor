@@ -55,11 +55,15 @@ const mapDispatchToProps = dispatch => ({
 class POI extends Component {
 
   componentWillMount() {
+    console.log('maybe leaf', this.props);
     // if (this.props.nodePosition === 'root') {
 
     // }
     if (this.props.nodePosition === 'branch') {
       this.props.onBranchCreation(this.props.query);
+    }
+    if (this.props.nodePosition === 'leaf') {
+      console.log('this is a leaf', this.props);
     }
   }
 
