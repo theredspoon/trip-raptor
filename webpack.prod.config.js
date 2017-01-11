@@ -2,13 +2,14 @@ const path = require('path');
 const webpack = require('webpack');
 const cssnext = require('postcss-cssnext');
 const DotenvPlugin = require('webpack-dotenv-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: [
-    'bootstrap-loader/extractStyles', // in lieu of ExtractTextPlugin for CSS
+    'bootstrap-loader/extractStyles', //hooks in bootstrap-sass into ExtractTextPlugin
     path.resolve(__dirname, 'src/client/scripts/app.jsx')],
   output: {
-    path: path.resolve(__dirname, 'dist/build'), // webpack-dev-server needs content-base to serve from 'dist/'
+    path: path.resolve(__dirname, 'dist/build'),
     publicPath: '/build/', // 'webpack result is being served from [publicPath]'
     filename: 'bundle.js',
   },
@@ -24,21 +25,21 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loaders: [
-          'style-loader', // ?sourceMap',
+        loader: ExtractTextPlugin.extract(
+          'style-loader',
           'css-loader?modules&importLoaders=4&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
           'postcss-loader',
           'resolve-url-loader',
           'sass-loader?sourceMap',
-          'sass-resources-loader?sourceMap',
-        ],
+          'sass-resources-loader?sourceMap'
+        ),
       },
       {
         test: /\.css$/,
-        loaders: [
+        loaders: ExtractTextPlugin.extract(
           'style-loader?sourceMap',
-          'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-        ],
+          'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
+        ),
       },
       { test: /\.(woff2?|svg)$/, loader: 'url-loader?limit=10000' },
       { test: /\.(ttf|eot)$/, loader: 'file-loader' },
@@ -56,6 +57,7 @@ module.exports = {
     new webpack.EnvironmentPlugin([
       'GOOGLE_MAPS_API',
     ]),
+    new ExtractTextPlugin('[name]-bundle.css', { allChunks: true })
   ],
   resolve: {
     extensions: ['', '.js', '.jsx', '.es6'],
