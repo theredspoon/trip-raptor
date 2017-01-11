@@ -74,7 +74,7 @@ class POIDetails extends Component {
   }
 
   // Checking unique id exists in itinerary
-  checkIfInsideItinerary(arr, poi) {
+  isInsideItinerary(arr, poi) {
     for (let i = 0; i < arr.length; i++) {
       if (poi.place_id === arr[i].place_id) {
         return true;
@@ -108,7 +108,7 @@ class POIDetails extends Component {
       image = <div />;
     }
 
-    if (cityArray && this.checkIfInsideItinerary(cityArray, selectedDetails)) {
+    if (cityArray && this.isInsideItinerary(cityArray, selectedDetails)) {
       button = this.removeButton(cityArray.indexOf(selectedDetails), this.props.currentCity);
     } else {
       button = this.addButton(selectedDetails, itinerary);
