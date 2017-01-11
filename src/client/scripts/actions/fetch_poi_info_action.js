@@ -58,7 +58,7 @@ function fetchPoiDetailsError(err) {
 
 export function fetchPoiDetails(poiID, index) {
   return function (dispatch, getState) {
-    const { branchTitles } = getState();
+    const { branchTitles, currentRoot } = getState();
     const search = {
       placeId: poiID,
     };
@@ -67,6 +67,7 @@ export function fetchPoiDetails(poiID, index) {
         dispatch(fetchPoiDetailsError(err));
       }
       // Updating branchTitles w/o mutation through slice and spread operator
+      res.currentRoot = currentRoot.currentRoot.slice(0, -1);
       const result = [...branchTitles.branchTitles.slice(0, index), res, ...branchTitles.branchTitles.slice(index + 1)];
       dispatch(fetchPoiDetailsSuccess(result));
     });
