@@ -60,19 +60,6 @@ class POIDetails extends Component {
     </button>);
   }
 
-  // removeButton(index, city) {
-  //   return (
-  //     <button
-  //       className="btn btn-danger"
-  //       onClick={() =>
-  //         this.props.onRemoveFromListClick(
-  //           index, city, this.props.itinerary.itinerary)}
-  //     >
-  //       Remove From List
-  //     </button>
-  //   );
-  // }
-
   // Checking unique id exists in itinerary
   isInsideItinerary(arr, poi) {
     for (let i = 0; i < arr.length; i++) {
