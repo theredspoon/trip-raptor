@@ -117,7 +117,7 @@ class POI extends Component {
         );
     } else {
       // if promise is not returned (and all other cases)
-      status = <div>{this.props.branchTitle} Loading...</div>;
+      status = <div> Loading... </div>;
     }
     return (
       <div>

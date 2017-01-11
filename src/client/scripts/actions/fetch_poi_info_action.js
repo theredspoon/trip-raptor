@@ -67,7 +67,7 @@ export function fetchPoiDetails(poiID, index) {
         dispatch(fetchPoiDetailsError(err));
       }
       // Updating branchTitles w/o mutation through slice and concat
-      const result = branchTitles.branchTitles.slice(0, index).concat(res, branchTitles.branchTitles.slice(index + 1));
+      const result = [...branchTitles.branchTitles.slice(0, index), res, ...branchTitles.branchTitles.slice(index + 1)];
       dispatch(fetchPoiDetailsSuccess(result));
     });
   };

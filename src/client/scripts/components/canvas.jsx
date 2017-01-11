@@ -56,7 +56,6 @@ class Canvas extends Component {
                   branchTitle={item.name}
                   key={index}
                   query={item.query}
-
                 />
               </div>
               ),
