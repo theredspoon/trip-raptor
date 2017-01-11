@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as AddToItinerary from '../actions/add_to_itinerary_action';
-import RemoveButton from '../containers/removeButton';
 import * as POIInfo from '../actions/fetch_poi_info_action';
+import AddButton from '../containers/addButton';
+import RemoveButton from '../containers/removeButton';
 
 
 // needs to dispatch to itinerary
 
 import '../../styles/poi_details.scss';
 
-// actions: ADD_TO_ITINERARY, FETCH_POI_INFO
+// actions: FETCH_POI_INFO
 
 const mapStateToProps = state =>
   ({
@@ -20,19 +20,6 @@ const mapStateToProps = state =>
 
 const mapDispatchToProps = dispatch =>
   ({
-    onAddToListClick: (currentCity, selectedDetails, oldItinerary) => {
-      // logic for handling new city vs existing city
-      const POIsInCity =
-      // if currentCity is defined
-        oldItinerary[currentCity] ?
-          oldItinerary[currentCity].concat([selectedDetails]) :
-      // if currentCity is undefined
-          [selectedDetails];
-      dispatch(AddToItinerary.addToItinerary({
-        ...oldItinerary,
-        [currentCity]: POIsInCity,
-      }));
-    },
     fetchDetails: (placeId, index) => {
       dispatch(POIInfo.fetchPoiDetails(placeId, index));
     },
@@ -43,21 +30,6 @@ class POIDetails extends Component {
   // (the data to display for hotels may be different than from restaurants)
   componentWillMount() {
     this.props.fetchDetails(this.props.details.place_id, this.props.index);
-  }
-  // todo add src tag to img.
-  // current info within render is example data. change as needed
-    // example src=`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.props.photos[0].photo_reference}&key=AIzaSyC535s39VzBWKFSXSlMaOllvk5ocBGNh9E`
-
-  addButton(selectedDetails, itinerary) {
-    return (<button
-      onClick={() =>
-      this.props.onAddToListClick(
-      this.props.currentLocation.city,
-      selectedDetails, itinerary)}
-      className="btn btn-primary"
-    >
-      Add to List
-    </button>);
   }
 
   // Checking unique id exists in itinerary
@@ -98,7 +70,7 @@ class POIDetails extends Component {
     if (cityArray && this.isInsideItinerary(cityArray, selectedDetails)) {
       button = <RemoveButton index={cityArray.indexOf(selectedDetails)} city={this.props.currentCity} details={selectedDetails} />;
     } else {
-      button = this.addButton(selectedDetails, itinerary);
+      button = <AddButton city={this.props.currentCity} details={selectedDetails} />;
     }
 
     return (
