@@ -45,10 +45,14 @@ class POIDetails extends Component {
   render() {
     const selectedDetails = this.props.details;
     const itinerary = this.props.itinerary.itinerary;
-    let image = null;
     const cityArray = itinerary[this.props.currentCity] || [];
+    let image = null;
+    let rating = null;
+    let formattedAddress = null;
+    let formattedPhoneNumber = null;
+    let internationalPhoneNumber = null;
+    let website = null;
     let button = null;
-
 
     if (selectedDetails.photos) {
       image = (
@@ -59,12 +63,42 @@ class POIDetails extends Component {
               styleName="picDetail"
               src={`${pic.getUrl({ maxWidth: 250, maxHeight: 250 })}`}
             />
-          ),
+            ),
           )}
         </div>
       );
     } else {
       image = <div />;
+    }
+
+    if (selectedDetails.rating) {
+      rating = <h4>Rating: {selectedDetails.rating} </h4>;
+    } else {
+      rating = <div />;
+    }
+
+    if (selectedDetails.formatted_phone_number) {
+      formattedPhoneNumber = <div>Phone Number: {selectedDetails.formatted_phone_number}</div>;
+    } else {
+      formattedPhoneNumber = <div />;
+    }
+
+    if (selectedDetails.formatted_address) {
+      formattedAddress = <div>Address: {selectedDetails.formatted_address}</div>;
+    } else {
+      formattedAddress = <div />;
+    }
+
+    if (selectedDetails.international_phone_number) {
+      internationalPhoneNumber = <div>International Phone Number: {selectedDetails.international_phone_number}</div>;
+    } else {
+      internationalPhoneNumber = <div />;
+    }
+
+    if (selectedDetails.website) {
+      website = <div> Website: <a target="_blank" rel="noopener noreferrer" href={selectedDetails.website} styleName="webDetailLink"> {selectedDetails.website} </a> </div>;
+    } else {
+      website = <div />;
     }
 
     if (cityArray && this.isInsideItinerary(cityArray, selectedDetails)) {
@@ -79,13 +113,13 @@ class POIDetails extends Component {
           <div >
             { image }
             <h3>{selectedDetails.name}</h3>
-            <h4>Rating: {selectedDetails.rating}</h4>
-            <ul>
-              <li>Address: {selectedDetails.formatted_address}</li>
-              <li>Phone Number: {selectedDetails.formatted_phone_number}</li>
-              <li>International Phone Number: {selectedDetails.international_phone_number}</li>
-              <li>Website: <a target="_blank" rel="noopener noreferrer" href={selectedDetails.website} styleName="webDetailLink"> {selectedDetails.website} </a> </li>
-            </ul>
+            { rating }
+            <div>
+              { formattedAddress }
+              { formattedPhoneNumber }
+              { internationalPhoneNumber }
+              { website }
+            </div>
             { button }
           </div>
         </div>
