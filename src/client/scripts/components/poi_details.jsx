@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as AddToItinerary from '../actions/add_to_itinerary_action';
-import * as RemoveFromItinerary from '../actions/remove_from_itinerary_action';
+import RemoveButton from '../containers/removeButton';
 import * as POIInfo from '../actions/fetch_poi_info_action';
 
 
@@ -60,18 +60,18 @@ class POIDetails extends Component {
     </button>);
   }
 
-  removeButton(index, city) {
-    return (
-      <button
-        className="btn btn-danger"
-        onClick={() =>
-          this.props.onRemoveFromListClick(
-            index, city, this.props.itinerary.itinerary)}
-      >
-        Remove From List
-      </button>
-    );
-  }
+  // removeButton(index, city) {
+  //   return (
+  //     <button
+  //       className="btn btn-danger"
+  //       onClick={() =>
+  //         this.props.onRemoveFromListClick(
+  //           index, city, this.props.itinerary.itinerary)}
+  //     >
+  //       Remove From List
+  //     </button>
+  //   );
+  // }
 
   // Checking unique id exists in itinerary
   isInsideItinerary(arr, poi) {
@@ -109,7 +109,7 @@ class POIDetails extends Component {
     }
 
     if (cityArray && this.isInsideItinerary(cityArray, selectedDetails)) {
-      button = this.removeButton(cityArray.indexOf(selectedDetails), this.props.currentCity);
+      button = <RemoveButton index={cityArray.indexOf(selectedDetails)} details={selectedDetails} />;
     } else {
       button = this.addButton(selectedDetails, itinerary);
     }
@@ -127,7 +127,7 @@ class POIDetails extends Component {
               <li>International Phone Number: {selectedDetails.international_phone_number}</li>
               <li>Website: <a target="_blank" rel="noopener noreferrer" href={selectedDetails.website} styleName="webDetailLink"> {selectedDetails.website} </a> </li>
             </ul>
-            {button}
+            { button }
           </div>
         </div>
       </div>
