@@ -10,18 +10,13 @@ const mapStatetoProps = state => ({
 });
 
 class Itinerary extends Component {
-  componentWillMount() {
-    console.log(this);
-  }
   render() {
     const itineraryLength = Object.keys(this.props.itinerary.itinerary).length;
     const cities = Object.keys(this.props.itinerary.itinerary);
     // if itinerary is empty, with no properties, this container does not display
-    const name = null;
     if (itineraryLength <= 0) {
       return <div />;
     }
-
 
     return (
       <div styleName="listbox">
