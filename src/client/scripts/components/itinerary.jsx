@@ -17,28 +17,23 @@ class Itinerary extends Component {
     if (itineraryLength <= 0) {
       return <div />;
     }
+
     return (
       <div styleName="listbox">
-        <ul>
-          {cities.map(city => (
-            this.props.itinerary.itinerary[city].map((POI, index) => (
+        {cities.map(city => (
+          <ul> <h1>{city} </h1>
+            {this.props.itinerary.itinerary[city].map((POI, index) => (
               <li>
-                {city}
-                <div>
-                  <ul>
-                    <li>
-                      {POI.name}<br />
-                      {POI.formatted_phone_numberphoneNumber}<br />
-                      {POI.international_phone_number}<br />
-                      {POI.formatted_address}<br />
-                      <RemoveButton details={POI} city={city} index={index} />
-                    </li>
-                  </ul>
-                </div>
+                <h2>{ POI.currentRoot }</h2>
+                { POI.name }<br />
+                { POI.formatted_phone_number }<br />
+                { POI.international_phone_number }<br />
+                { POI.formatted_address }<br />
+                <RemoveButton details={POI} city={city} index={index} />
               </li>
-            ))
-          ))}
-        </ul>
+            ))}
+          </ul>
+        ))}
       </div>
     );
     // the first time the itineraryList is not empty, display a handlebar at the
