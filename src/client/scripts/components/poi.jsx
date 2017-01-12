@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { push, goBack, go } from 'react-router-redux';
+import { push } from 'react-router-redux';
 import { Overlay, Popover, OverlayTrigger, Button } from 'react-bootstrap';
 import * as POIInfo from '../actions/fetch_poi_info_action';
 import * as UpdateRoot from '../actions/update_root_action';
@@ -27,24 +26,24 @@ const mapDispatchToProps = dispatch => ({
   onBranchCreation: (branchTitle) => {
     dispatch(POIInfo.fetchPoiInfo(branchTitle));
   },
-  onUpdateRoot: (name, query) => {
+  onUpdateRoot: (city, name, query) => {
     dispatch(UpdateRoot.updateRoot(name));
     dispatch(UpdateBranch.updateBranchTitles(query));
-    dispatch(push(`/city/${name}`));
+    dispatch(push(`/${city}/${name}`));
   },
-  onLeafClick: (branchTitle, type, id) => {
+  onLeafClick: (city, branchTitle, type, id) => {
     if (id) {
-      dispatch(push(`/city/${type}/${branchTitle}/${id}`));
+      dispatch(push(`/${city}/${type}/${branchTitle}/${id}`));
       dispatch(UpdateCurrentLeaf.updateCurrentClickedLeaf(branchTitle));
     } else {
-      dispatch(push(`/city/${type}/${branchTitle}`));
+      dispatch(push(`/${city}/${type}/${branchTitle}`));
       dispatch(UpdateCurrentLeaf.updateCurrentClickedLeaf(branchTitle));
     }
   },
-  // TODO: allow dynamic routing
   goBack: (current, destination) => {
     if (current !== destination) {
       dispatch(UpdateRoot.updateRoot(destination));
+      dispatch(push(`/${destination}`));
     } else {
       dispatch(push('/'));
     }
@@ -55,15 +54,10 @@ const mapDispatchToProps = dispatch => ({
 class POI extends Component {
 
   componentWillMount() {
-    console.log('maybe leaf', this.props);
-    // if (this.props.nodePosition === 'root') {
-
-    // }
     if (this.props.nodePosition === 'branch') {
       this.props.onBranchCreation(this.props.query);
     }
     if (this.props.nodePosition === 'leaf') {
-      console.log('this is a leaf', this.props);
     }
   }
 
@@ -75,7 +69,7 @@ class POI extends Component {
       <Popover id="popover-trigger-click">
         <POIDetails index={this.props.index} details={this.props.details} />
       </Popover>
-);
+    );
 
     let status = null;
     if (this.props.nodePosition === 'root') {
@@ -98,6 +92,7 @@ class POI extends Component {
             <div
               onClick={
                 () => this.props.onUpdateRoot(
+                  currentCity,
                   this.props.branchTitle,
                   this.props.POIs[this.props.query],
                 )
@@ -110,7 +105,7 @@ class POI extends Component {
     } else if (this.props.nodePosition === 'leaf') {
       status = (
         <OverlayTrigger trigger="click" delayShow={2800} placement="bottom" overlay={showDetail} rootClose>
-          <div onClick={() => this.props.onLeafClick(this.props.query, localRoot, this.props.query)}>
+          <div onClick={() => this.props.onLeafClick(currentCity, this.props.query, localRoot, this.props.query)}>
             {this.props.branchTitle}
           </div>
         </OverlayTrigger>
