@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
 import Autocomplete from 'react-google-autocomplete';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
+import NavBar from './nav';
 import * as UpdateCurrentLocation from '../actions/update_current_location_action';
 import * as UpdateRoot from '../actions/update_root_action';
 
@@ -21,18 +21,14 @@ class PlaceInput extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-inverse">
-          <div className="container-fluid">
-            <a className="navbar-brand" href="#">TRIP_RAPTOR</a>
-          </div>
-        </nav>
+        <NavBar />
         <h1 styleName="ask"> Which city are you going?</h1>
         <Autocomplete
           id="AutoForm"
           styleName="autoForm"
           ref="AutoForm"
           placeholder="_____________________________"
-          componentRestrictions={{country: []}}
+          componentRestrictions={{ country: [] }}
           onPlaceSelected={(place) => {
             if (!place.place_id) {
               console.log('Please passing in the right City...');
