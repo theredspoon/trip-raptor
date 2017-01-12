@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import RemoveButton from '../containers/removeButton';
-// import Share from './share';
+import Share from './share';
 
 import '../../styles/itinerary.scss';
 
-const mapStatetoProps = state => ({
+const mapStateToProps = state => ({
   itinerary: state.itinerary,
 });
 
@@ -33,7 +33,9 @@ class Itinerary extends Component {
               </li>
             ))}
           </ul>
-        ))}
+          ))
+        }
+        <Share />
       </div>
     );
     // the first time the itineraryList is not empty, display a handlebar at the
@@ -57,4 +59,4 @@ Itinerary.propTypes = {
   // propname: PropTypes.string.isRequired,
 };
 
-export default connect(mapStatetoProps /* mapDispatchToProps*/)(Itinerary);
+export default connect(mapStateToProps)(Itinerary);
