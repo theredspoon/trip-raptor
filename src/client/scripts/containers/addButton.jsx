@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch =>
 
 class AddButton extends Component {
   componentWillMount() {
-    console.log(this);
+    // console.log(this);
   }
   render() {
     const selectedDetails = this.props.details;
