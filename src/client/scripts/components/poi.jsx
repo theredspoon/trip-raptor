@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { push, goBack, go } from 'react-router-redux';
+import { push } from 'react-router-redux';
 import { Overlay, Popover, OverlayTrigger, Button } from 'react-bootstrap';
 import * as POIInfo from '../actions/fetch_poi_info_action';
 import * as UpdateRoot from '../actions/update_root_action';
@@ -45,6 +44,7 @@ const mapDispatchToProps = dispatch => ({
   goBack: (current, destination) => {
     if (current !== destination) {
       dispatch(UpdateRoot.updateRoot(destination));
+      dispatch(push('/city'));
     } else {
       dispatch(push('/'));
     }
@@ -55,7 +55,6 @@ const mapDispatchToProps = dispatch => ({
 class POI extends Component {
 
   componentWillMount() {
-    console.log('maybe leaf', this.props);
     // if (this.props.nodePosition === 'root') {
 
     // }
@@ -63,7 +62,7 @@ class POI extends Component {
       this.props.onBranchCreation(this.props.query);
     }
     if (this.props.nodePosition === 'leaf') {
-      console.log('this is a leaf', this.props);
+      // console.log('this is a leaf', this.props);
     }
   }
 
@@ -75,7 +74,7 @@ class POI extends Component {
       <Popover id="popover-trigger-click">
         <POIDetails index={this.props.index} details={this.props.details} />
       </Popover>
-);
+    );
 
     let status = null;
     if (this.props.nodePosition === 'root') {
