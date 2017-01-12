@@ -1,20 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-
-import POI from './poi';
-import POIDetails from './poi_details';
-import Itinerary from './itinerary';
-
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import * as POIInfo from '../actions/fetch_poi_info_action';
-import { updateRoot } from '../actions/update_root_action';
+import POI from './poi';
+import Itinerary from './itinerary';
+import NavBar from './nav';
 
 import '../../styles/canvas.scss';
 
 const mapStateToProps = state =>
   // check state
   // console.log('This is state inside of Canvas', state);
-
    ({
      currentLocation: state.currentLocation,
      branchTitles: state.branchTitles,
@@ -34,21 +29,13 @@ class Canvas extends Component {
     const numberStrings = ['zero', 'one', 'two', 'three', 'four'];
 
     let canvas = null;
+    let branch = null;
+    let leaf = null;
+
     if (localRoot === currentCity) {
-      canvas = (
+      branch = (
         <div>
-          <nav className="navbar navbar-inverse">
-            <div className="container-fluid">
-              <a className="navbar-brand" href="/">TRIP_RAPTOR
-                <span> | Planning your trip to {currentCity} city</span>
-              </a>
-            </div>
-          </nav>
-          <div styleName="branchRoot">
-            <POI nodePosition="root" />
-          </div>
-          <div>
-            { this.props.branchTitles.default.map(
+          { this.props.branchTitles.default.map(
             (item, index) => (
               <div styleName={numberStrings[index]}>
                 <POI
@@ -60,24 +47,16 @@ class Canvas extends Component {
               </div>
               ),
             )}
-          </div>
         </div>
       );
-    } else if (localRoot !== currentCity && localRoot) {
-      canvas = (
+    } else {
+      branch = <div />;
+    }
+
+    if (localRoot !== currentCity && localRoot) {
+      leaf = (
         <div>
-          <nav className="navbar navbar-inverse">
-            <div className="container-fluid">
-              <a className="navbar-brand" href="/">TRIP_RAPTOR
-                <span> | Choosing {localRoot} you like</span>
-              </a>
-            </div>
-          </nav>
-          <div styleName="branchRoot">
-            <POI nodePosition="root" />
-          </div>
-          <div>
-            { this.props.branchTitles.branchTitles.map(
+          { this.props.branchTitles.branchTitles.map(
             (item, index) => (
               <div styleName={numberStrings[index]}>
                 <POI
@@ -91,12 +70,22 @@ class Canvas extends Component {
               </div>
               ),
             )}
-          </div>
-        </div>
-      );
+        </div>);
     } else {
-      canvas = <div>Loading...</div>;
+      leaf = <div />;
     }
+
+    canvas = (
+      <div>
+        <NavBar />
+        <div styleName="branchRoot">
+          <POI nodePosition="root" />
+        </div>
+        { branch }
+        { leaf }
+      </div>
+    );
+
     return (
       <div>
         {canvas}
