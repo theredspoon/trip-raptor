@@ -10,6 +10,17 @@ const mapStateToProps = state => ({
 });
 
 class Itinerary extends Component {
+  populateDetails(string) {
+    if (string.length > 0) {
+      return (
+        <div>
+          { string }
+          <br />
+        </div>
+      );
+    }
+  }
+
   render() {
     const itineraryLength = Object.keys(this.props.itinerary.itinerary).length;
     const cities = Object.keys(this.props.itinerary.itinerary);
@@ -18,6 +29,7 @@ class Itinerary extends Component {
       return <div />;
     }
 
+
     return (
       <div styleName="listbox">
         {cities.map(city => (
@@ -25,10 +37,10 @@ class Itinerary extends Component {
             {this.props.itinerary.itinerary[city].map((POI, index) => (
               <li>
                 <h2>{ POI.currentRoot }</h2>
-                { POI.name }<br />
-                { POI.formatted_phone_number }<br />
-                { POI.international_phone_number }<br />
-                { POI.formatted_address }<br />
+                { this.populateDetails(POI.name) }
+                { this.populateDetails(POI.formatted_phone_number) }
+                { this.populateDetails(POI.international_phone_number) }
+                { this.populateDetails(POI.formatted_address) }
                 <RemoveButton details={POI} city={city} index={index} />
               </li>
             ))}
