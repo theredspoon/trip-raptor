@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import POI from './poi';
 import Itinerary from './itinerary';
 import NavBar from './nav';
@@ -22,12 +21,10 @@ class Canvas extends Component {
     // checking for updates
     // console.log('CurrentRoot in CANVAS is', this.props);
   }
-
   render() {
     const localRoot = this.props.currentRoot.currentRoot;
     const currentCity = this.props.currentLocation.city;
     const numberStrings = ['zero', 'one', 'two', 'three', 'four'];
-
     let canvas = null;
     let branch = null;
     let leaf = null;
@@ -77,7 +74,6 @@ class Canvas extends Component {
 
     canvas = (
       <div>
-        <NavBar />
         <div styleName="branchRoot">
           <POI nodePosition="root" />
         </div>
@@ -88,6 +84,7 @@ class Canvas extends Component {
 
     return (
       <div>
+        <NavBar />
         {canvas}
         <Itinerary />
       </div>

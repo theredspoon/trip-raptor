@@ -25,21 +25,21 @@ class NavBar extends Component {
 
     let navBar = null;
 
-    if (pathName === '/city') {
+    if (pathName === `/${currentCity}` && pathName.length > 1) {
       navBar = (
         <nav className="navbar navbar-inverse">
           <div className="container-fluid">
             <a className="navbar-brand" onClick={() => this.props.goHome()}>TRIP_RAPTOR
-            <span> | Planning your trip to {currentCity} city</span>
+            <span> | Plan Your Trip To {currentCity}</span>
             </a>
           </div>
         </nav>);
-    } else if (pathName.includes(`/city/${localRoot}`)) {
+    } else if (pathName.includes(`/${currentCity}/${localRoot}`)) {
       navBar = (
         <nav className="navbar navbar-inverse">
           <div className="container-fluid">
             <a className="navbar-brand" onClick={() => this.props.goHome()}>TRIP_RAPTOR
-            <span> | Choosing {localRoot} you like</span>
+            <span> | Choose {localRoot} You Like</span>
             </a>
           </div>
         </nav>);

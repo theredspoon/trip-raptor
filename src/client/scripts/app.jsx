@@ -25,10 +25,10 @@ render((
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={PlaceInput} />
-      <Route path="/city" >
+      <Route path="/*" >
         <IndexRoute component={Canvas} />
-        <Route path="/city/*" component={Canvas} />
-        <Route path="/city/*/*" component={Canvas} />
+        <Route path="/*/*" component={Canvas} />
+        <Route path="/*/*/*" component={Canvas} />
       </Route>
     </Router>
   </Provider>

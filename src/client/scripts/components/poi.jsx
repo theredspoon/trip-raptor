@@ -26,17 +26,17 @@ const mapDispatchToProps = dispatch => ({
   onBranchCreation: (branchTitle) => {
     dispatch(POIInfo.fetchPoiInfo(branchTitle));
   },
-  onUpdateRoot: (name, query) => {
+  onUpdateRoot: (city, name, query) => {
     dispatch(UpdateRoot.updateRoot(name));
     dispatch(UpdateBranch.updateBranchTitles(query));
-    dispatch(push(`/city/${name}`));
+    dispatch(push(`/${city}/${name}`));
   },
-  onLeafClick: (branchTitle, type, id) => {
+  onLeafClick: (city, branchTitle, type, id) => {
     if (id) {
-      dispatch(push(`/city/${type}/${branchTitle}/${id}`));
+      dispatch(push(`/${city}/${type}/${branchTitle}/${id}`));
       dispatch(UpdateCurrentLeaf.updateCurrentClickedLeaf(branchTitle));
     } else {
-      dispatch(push(`/city/${type}/${branchTitle}`));
+      dispatch(push(`/${city}/${type}/${branchTitle}`));
       dispatch(UpdateCurrentLeaf.updateCurrentClickedLeaf(branchTitle));
     }
   },
@@ -44,7 +44,7 @@ const mapDispatchToProps = dispatch => ({
   goBack: (current, destination) => {
     if (current !== destination) {
       dispatch(UpdateRoot.updateRoot(destination));
-      dispatch(push('/city'));
+      dispatch(push(`/${destination}`));
     } else {
       dispatch(push('/'));
     }
@@ -55,6 +55,7 @@ const mapDispatchToProps = dispatch => ({
 class POI extends Component {
 
   componentWillMount() {
+    console.log('POI is type of', this);
     // if (this.props.nodePosition === 'root') {
 
     // }
@@ -97,6 +98,7 @@ class POI extends Component {
             <div
               onClick={
                 () => this.props.onUpdateRoot(
+                  currentCity,
                   this.props.branchTitle,
                   this.props.POIs[this.props.query],
                 )
@@ -109,7 +111,7 @@ class POI extends Component {
     } else if (this.props.nodePosition === 'leaf') {
       status = (
         <OverlayTrigger trigger="click" delayShow={2800} placement="bottom" overlay={showDetail} rootClose>
-          <div onClick={() => this.props.onLeafClick(this.props.query, localRoot, this.props.query)}>
+          <div onClick={() => this.props.onLeafClick(currentCity, this.props.query, localRoot, this.props.query)}>
             {this.props.branchTitle}
           </div>
         </OverlayTrigger>

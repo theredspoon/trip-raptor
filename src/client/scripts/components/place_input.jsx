@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => ({
   onInputSubmit: (place) => {
     dispatch(UpdateCurrentLocation.updateCurrentLocation(place));
     dispatch(UpdateRoot.updateRoot(place.name));
-    dispatch(push('/city'));
+    dispatch(push(`/${place.name}`));
   },
 });
 
