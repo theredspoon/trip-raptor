@@ -7,8 +7,6 @@ import NavBar from './nav';
 import '../../styles/canvas.scss';
 
 const mapStateToProps = state =>
-  // check state
-  // console.log('This is state inside of Canvas', state);
    ({
      currentLocation: state.currentLocation,
      branchTitles: state.branchTitles,
@@ -17,10 +15,6 @@ const mapStateToProps = state =>
    });
 
 class Canvas extends Component {
-  componentDidUpdate() {
-    // checking for updates
-    // console.log('CurrentRoot in CANVAS is', this.props);
-  }
   render() {
     const localRoot = this.props.currentRoot.currentRoot;
     const currentCity = this.props.currentLocation.city;

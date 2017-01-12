@@ -40,7 +40,6 @@ const mapDispatchToProps = dispatch => ({
       dispatch(UpdateCurrentLeaf.updateCurrentClickedLeaf(branchTitle));
     }
   },
-  // TODO: allow dynamic routing
   goBack: (current, destination) => {
     if (current !== destination) {
       dispatch(UpdateRoot.updateRoot(destination));
@@ -55,15 +54,10 @@ const mapDispatchToProps = dispatch => ({
 class POI extends Component {
 
   componentWillMount() {
-    console.log('POI is type of', this);
-    // if (this.props.nodePosition === 'root') {
-
-    // }
     if (this.props.nodePosition === 'branch') {
       this.props.onBranchCreation(this.props.query);
     }
     if (this.props.nodePosition === 'leaf') {
-      // console.log('this is a leaf', this.props);
     }
   }
 
