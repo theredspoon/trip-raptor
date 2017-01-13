@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 
 class Itinerary extends Component {
   populateDetails(string) {
-    if (string.length > 0) {
+    if (string !== undefined && string.length > 0) {
       return (
         <div>
           { string }
@@ -24,7 +24,7 @@ class Itinerary extends Component {
   render() {
     const itineraryLength = Object.keys(this.props.itinerary.itinerary).length;
     const cities = Object.keys(this.props.itinerary.itinerary);
-    // if itinerary is empty, with no properties, this container does not display
+
     if (itineraryLength <= 0) {
       return <div />;
     }
@@ -50,19 +50,6 @@ class Itinerary extends Component {
         <Share />
       </div>
     );
-    // the first time the itineraryList is not empty, display a handlebar at the
-    // middle right-hand side of the window and shake it to suggest to the user
-    // that it should be explored (hovered over)
-
-    // if the itineraryList is not empty, and the handlebar is hovered over,
-    // slide out a container from the right-hand side
-
-    // on hover, this container slides out from the right-hand side
-
-    // on blur, this container slides back into the right side of the screen
-
-    // insider the container, render the list of added POIs and the cities they correspond to
-    // along the bottom of the container, render the share component <Share></Share>
   }
 }
 
