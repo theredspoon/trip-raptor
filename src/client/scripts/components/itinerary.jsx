@@ -29,7 +29,6 @@ class Itinerary extends Component {
       return <div />;
     }
 
-
     return (
       <div styleName="listbox">
         {cities.map(city => (
