@@ -7,19 +7,26 @@ const mapStateToProps = state => ({
   itinerary: state.itinerary,
 });
 
+const lineBreak = '%0A';
+const indent = '%20%20';
+const newline = '%0A%0A';
+const dash = '%2D%20';
+
 class Share extends Component {
 
-  createMessageBody(itinerary) {
-    const newline = '%0A%0A';
-    const lineBreak = '%0A';
-    const indent = '%20%20';
-    const dash = '%2D%20';
+  populateDetails(string) {
+    if (string !== undefined && string.length > 0) {
+      console.log('encodeURIComponent(string) is', encodeURIComponent(string));
+      return `${encodeURIComponent(string)}${lineBreak}${indent}`;
+    }
+  }
 
-    return 'My Trip Details'.concat(newline) + Object.keys(itinerary)
+  createMessageBody(itinerary) {
+    return 'Here are the highlights for my trip:'.concat(newline) + Object.keys(itinerary)
       .reduce((body, city) => (
         body.concat(`${city}${newline}`,
           itinerary[city].reduce((acc, POI) => (
-            acc.concat(`${dash}${POI.name}${newline}${indent}${POI.formatted_phone_number}${lineBreak}${indent}${POI.international_phone_number}${lineBreak}${indent}${POI.formatted_address}${newline}`)
+            acc.concat(`${dash}${encodeURIComponent(POI.name)}${newline}${indent}${this.populateDetails(POI.formatted_phone_number)}${this.populateDetails(POI.international_phone_number)}${this.populateDetails(POI.formatted_address)}${newline}`)
           ), ''),
         )
     ), '');
@@ -30,14 +37,15 @@ class Share extends Component {
     const message = this.createMessageBody(itinerary);
 
     return (
-      <div>
-        <a
-          target="_blank"
-          href={`mailto:?subject=My%20Trip%20Itinerary&body=${message}`}
-        >
-          Email Me This Info
-        </a>
-      </div>
+      <a
+        role="button"
+        className="btn btn-success"
+        rel="noopener noreferrer"
+        target="_blank"
+        href={`mailto:?subject=My%20Trip%20Details&body=${message}`}
+      >
+        Email Me This Info
+      </a>
     );
   }
 }
