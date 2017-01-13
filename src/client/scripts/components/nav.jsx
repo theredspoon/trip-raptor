@@ -33,7 +33,7 @@ class NavBar extends Component {
             <div className="container-fluid">
               <a className="navbar-brand" onClick={() => this.props.goHome()}>TRIP_RAPTOR
             <span> | Plan Your Trip To {currentCity}</span>
-            </a>
+              </a>
             </div>
           </nav>
         </div>);
@@ -45,7 +45,7 @@ class NavBar extends Component {
             <div className="container-fluid">
               <a className="navbar-brand" onClick={() => this.props.goHome()}>TRIP_RAPTOR
             <span> | Choose {localRoot} You Like</span>
-            </a>
+              </a>
             </div>
           </nav>
         </div>);

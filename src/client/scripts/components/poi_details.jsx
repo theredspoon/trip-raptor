@@ -57,7 +57,7 @@ class POIDetails extends Component {
 
     if (selectedDetails.photos) {
       image = (
-        <div styleName="picDetail">
+        <div>
           <img
             role="presentation"
             src={`${selectedDetails.photos[0].getUrl({ maxWidth: 250, maxHeight: 250 })}`}
@@ -105,17 +105,19 @@ class POIDetails extends Component {
     }
 
     return (
-      <div className="pull-left" styleName="poiDetail" >
-        { image }
-        <h3>{selectedDetails.name}</h3>
-        { rating }
+      <div>
         <div>
-          { formattedAddress }
-          { formattedPhoneNumber }
-          { internationalPhoneNumber }
-          { website }
+          { image }
+          <h3>{selectedDetails.name}</h3>
+          { rating }
+          <div>
+            { formattedAddress }
+            { formattedPhoneNumber }
+            { internationalPhoneNumber }
+            { website }
+          </div>
+          { button }
         </div>
-        { button }
       </div>
     );
   }

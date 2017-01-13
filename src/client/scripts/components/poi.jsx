@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Overlay, Popover, OverlayTrigger, Button } from 'react-bootstrap';
+import { Popover, OverlayTrigger } from 'react-bootstrap';
 import * as POIInfo from '../actions/fetch_poi_info_action';
 import * as UpdateRoot from '../actions/update_root_action';
 import * as UpdateBranch from '../actions/update_branch_titles_action';
@@ -66,7 +66,7 @@ class POI extends Component {
     const localRoot = this.props.currentRoot.currentRoot;
     const currentCity = this.props.currentLocation.city;
     const showDetail = (
-      <Popover id="popover-trigger-click">
+      <Popover id="popover-trigger-click" styleName="pop">
         <POIDetails index={this.props.index} details={this.props.details} />
       </Popover>
     );
@@ -104,9 +104,9 @@ class POI extends Component {
         );
     } else if (this.props.nodePosition === 'leaf') {
       status = (
-        <OverlayTrigger trigger="click" delayShow={2800} placement="bottom" overlay={showDetail} rootClose>
+        <OverlayTrigger trigger="click" delayShow={2800} placement="bottom" arrowOffsetTop={false} overlay={showDetail} rootClose>
           <div
-onClick={() => this.props.onLeafClick(currentCity, this.props.query, localRoot, this.props.query)}
+            onClick={() => this.props.onLeafClick(currentCity, this.props.query, localRoot, this.props.query)}
             styleName="branchTitle"
           >
 

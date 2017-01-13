@@ -25,7 +25,7 @@ class Canvas extends Component {
 
     if (localRoot === currentCity) {
       branch = (
-        <div>
+        <div >
           { this.props.branchTitles.default.map(
             (item, index) => (
               <div styleName={numberStrings[index]}>
