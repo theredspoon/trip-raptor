@@ -1,22 +1,34 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import RemoveButton from '../containers/removeButton';
-// import Share from './share';
+import Share from './share';
 
 import '../../styles/itinerary.scss';
 
-const mapStatetoProps = state => ({
+const mapStateToProps = state => ({
   itinerary: state.itinerary,
 });
 
 class Itinerary extends Component {
+  populateDetails(string) {
+    if (string !== undefined && string.length > 0) {
+      return (
+        <div>
+          { string }
+          <br />
+        </div>
+      );
+    }
+  }
+
   render() {
     const itineraryLength = Object.keys(this.props.itinerary.itinerary).length;
     const cities = Object.keys(this.props.itinerary.itinerary);
-    // if itinerary is empty, with no properties, this container does not display
+
     if (itineraryLength <= 0) {
       return <div />;
     }
+
 
     return (
       <div styleName="listbox">
@@ -24,31 +36,19 @@ class Itinerary extends Component {
           <ul> <h1>{city} </h1>
             {this.props.itinerary.itinerary[city].map((POI, index) => (
               <li>
-                <h2>{ POI.currentRoot }</h2>
-                { POI.name }<br />
-                { POI.formatted_phone_number }<br />
-                { POI.international_phone_number }<br />
-                { POI.formatted_address }<br />
+                <h3>{ this.populateDetails(POI.name) }</h3>
+                { this.populateDetails(POI.formatted_phone_number) }
+                { this.populateDetails(POI.international_phone_number) }
+                { this.populateDetails(POI.formatted_address) }
                 <RemoveButton details={POI} city={city} index={index} />
               </li>
             ))}
           </ul>
-        ))}
+          ))
+        }
+        <Share />
       </div>
     );
-    // the first time the itineraryList is not empty, display a handlebar at the
-    // middle right-hand side of the window and shake it to suggest to the user
-    // that it should be explored (hovered over)
-
-    // if the itineraryList is not empty, and the handlebar is hovered over,
-    // slide out a container from the right-hand side
-
-    // on hover, this container slides out from the right-hand side
-
-    // on blur, this container slides back into the right side of the screen
-
-    // insider the container, render the list of added POIs and the cities they correspond to
-    // along the bottom of the container, render the share component <Share></Share>
   }
 }
 
@@ -57,4 +57,4 @@ Itinerary.propTypes = {
   // propname: PropTypes.string.isRequired,
 };
 
-export default connect(mapStatetoProps /* mapDispatchToProps*/)(Itinerary);
+export default connect(mapStateToProps)(Itinerary);
