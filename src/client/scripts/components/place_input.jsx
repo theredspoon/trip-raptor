@@ -17,7 +17,6 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-
 class PlaceInput extends Component {
   render() {
     return (

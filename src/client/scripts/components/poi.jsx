@@ -79,7 +79,7 @@ class POI extends Component {
           <div
             onClick={() => this.props.goBack(localRoot, currentCity)}
           >
-            <div >
+            <div>
               { localRoot }
             </div>
           </div>

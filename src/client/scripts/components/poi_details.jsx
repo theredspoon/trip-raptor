@@ -63,7 +63,7 @@ class POIDetails extends Component {
             src={`${selectedDetails.photos[0].getUrl({ maxWidth: 250, maxHeight: 250 })}`}
           />
         </div>
-        );
+      );
     } else {
       image = <div />;
     }

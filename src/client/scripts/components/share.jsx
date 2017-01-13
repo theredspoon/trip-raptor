@@ -39,7 +39,7 @@ class Share extends Component {
     return (
       <a
         role="button"
-        className="btn btn-success"
+        className="btn btn-success pull-right"
         rel="noopener noreferrer"
         target="_blank"
         href={`mailto:?subject=My%20Trip%20Details&body=${message}`}
