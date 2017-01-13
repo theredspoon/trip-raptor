@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
   itinerary: state.itinerary,
 });
 
+
 class Itinerary extends Component {
   populateDetails(string) {
     if (string !== undefined && string.length > 0) {
@@ -31,9 +32,11 @@ class Itinerary extends Component {
 
 
     return (
+
+
       <div styleName="listbox">
         {cities.map(city => (
-          <ul> <h1>{city} </h1>
+          <ul> <h2>{city} </h2>
             {this.props.itinerary.itinerary[city].map((POI, index) => (
               <li>
                 <h3>{ this.populateDetails(POI.name) }</h3>
