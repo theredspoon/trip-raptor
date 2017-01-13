@@ -36,8 +36,7 @@ class Itinerary extends Component {
           <ul> <h1>{city} </h1>
             {this.props.itinerary.itinerary[city].map((POI, index) => (
               <li>
-                <h2>{ POI.currentRoot }</h2>
-                { this.populateDetails(POI.name) }
+                <h3>{ this.populateDetails(POI.name) }</h3>
                 { this.populateDetails(POI.formatted_phone_number) }
                 { this.populateDetails(POI.international_phone_number) }
                 { this.populateDetails(POI.formatted_address) }

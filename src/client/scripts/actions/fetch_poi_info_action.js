@@ -66,12 +66,6 @@ export function fetchPoiDetails(poiID, index) {
       if (err) {
         dispatch(fetchPoiDetailsError(err));
       }
-      // Updating branchTitles w/o mutation through slice and spread operator
-      if (['Hotels', 'Museums', 'Restaurants'].includes(currentRoot.currentRoot)) {
-        res.currentRoot = currentRoot.currentRoot.slice(0, -1);
-      } else {
-        res.currentRoot = currentRoot.currentRoot;
-      }
       const result = [...branchTitles.branchTitles.slice(0, index), res, ...branchTitles.branchTitles.slice(index + 1)];
       dispatch(fetchPoiDetailsSuccess(result));
     });
