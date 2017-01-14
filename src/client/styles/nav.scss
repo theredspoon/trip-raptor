@@ -4,6 +4,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: -100;
 }
 
 .planBg {
@@ -12,5 +13,6 @@
   position: fixed;
   top: 0;
   left: 0;
-  opacity: 0.5;
+  opacity: .7;
+  z-index: -100;
 }

@@ -52,7 +52,7 @@ class NavBar extends Component {
     } else {
       navBar = (
         <div>
-          <img src={'images/trip-pic2.jpg'} styleName="mainBg" />
+          <img src={'images/trip-pic.jpg'} styleName="mainBg" />
           <nav className="navbar navbar-inverse">
             <div className="container-fluid">
               <a className="navbar-brand" onClick={() => this.props.goHome()}>TRIP_RAPTOR</a>
