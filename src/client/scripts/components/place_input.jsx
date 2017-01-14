@@ -22,21 +22,31 @@ class PlaceInput extends Component {
     return (
       <div>
         <NavBar />
-        <h1 styleName="ask"> Which city are you going?</h1>
-        <Autocomplete
-          id="AutoForm"
-          styleName="autoForm"
-          ref="AutoForm"
-          placeholder="_____________________________"
-          componentRestrictions={{ country: [] }}
-          onPlaceSelected={(place) => {
-            if (!place.place_id) {
-              console.log('Please passing in the right City...');
-            } else {
-              this.props.onInputSubmit(place);
-            }
-          }}
-        />
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-md-6 col-md-offset-3">
+              <h1 styleName="ask"> Which city are you going?</h1>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-6 col-md-offset-3">
+              <Autocomplete
+                id="AutoForm"
+                styleName="autoForm"
+                ref="AutoForm"
+                placeholder="_________________________"
+                componentRestrictions={{ country: [] }}
+                onPlaceSelected={(place) => {
+                  if (!place.place_id) {
+                    alert('Please passing in valid City...');
+                  } else {
+                    this.props.onInputSubmit(place);
+                  }
+                }}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

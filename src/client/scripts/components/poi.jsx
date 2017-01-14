@@ -66,7 +66,7 @@ class POI extends Component {
     const localRoot = this.props.currentRoot.currentRoot;
     const currentCity = this.props.currentLocation.city;
     const showDetail = (
-      <Popover id="popover-trigger-click" styleName="pop">
+      <Popover id="popover-trigger-click">
         <POIDetails index={this.props.index} details={this.props.details} />
       </Popover>
     );
@@ -104,7 +104,7 @@ class POI extends Component {
         );
     } else if (this.props.nodePosition === 'leaf') {
       status = (
-        <OverlayTrigger trigger="click" delayShow={2800} placement="bottom" arrowOffsetTop={false} overlay={showDetail} rootClose>
+        <OverlayTrigger trigger="click" delayShow={2800} placement="left" arrowOffsetTop={false} overlay={showDetail} rootClose>
           <div
             onClick={() => this.props.onLeafClick(currentCity, this.props.query, localRoot, this.props.query)}
             styleName="branchTitle"
