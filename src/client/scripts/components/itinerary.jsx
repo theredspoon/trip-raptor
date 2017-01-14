@@ -45,7 +45,9 @@ class Itinerary extends Component {
           </ul>
           ))
         }
-        <Share />
+        <div styleName="shareButtonWrapper">
+          <Share />
+        </div>
       </div>
     );
   }
