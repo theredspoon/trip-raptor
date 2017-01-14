@@ -16,7 +16,6 @@ class Share extends Component {
 
   populateDetails(string) {
     if (string !== undefined && string.length > 0) {
-      console.log('encodeURIComponent(string) is', encodeURIComponent(string));
       return `${encodeURIComponent(string)}${lineBreak}${indent}`;
     }
   }
