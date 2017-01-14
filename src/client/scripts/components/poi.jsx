@@ -66,7 +66,7 @@ class POI extends Component {
     const localRoot = this.props.currentRoot.currentRoot;
     const currentCity = this.props.currentLocation.city;
     const showDetail = (
-      <Popover id="popover-trigger-click" styleName="pop">
+      <Popover id="popover-trigger-click">
         <POIDetails index={this.props.index} details={this.props.details} />
       </Popover>
     );
