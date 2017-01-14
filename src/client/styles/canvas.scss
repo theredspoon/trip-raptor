@@ -1,126 +1,65 @@
-.branchRoot {
-  background-color: grey;
+.poi {
   border-radius: 50%;
+  text-align: center;
+  position: fixed;
+  font-size: 30px;
+  z-index: -1;
+}
+
+.branch {
+  @extend .poi;
+  background-color: lightpink;
+  height: 200px;
+  width: 200px;
+  padding-top: 75px;
+  &:hover {
+    background-color: lightslategrey;
+  }
+}
+
+.branchRoot {
+  @extend .poi;
+  background-color: grey;
   height: 180px;
   width: 180px;
-  text-align: center;
   padding-top: 65px;
   // display: block;
   margin-top: 20%;
   margin-left: 42%;
-  font-size: 30px;
-  position: fixed;
   color: white;
 }
 
-.branch {
-  background-color: lightpink;
-  border-radius: 50%;
-  height: 250px;
-  width: 250px;
-  text-align: center;
-  padding-top: 100px;
-  margin-top: 43%;
-  margin-left: 43%;
-}
-
-.titles {
-  color: orangered;
-  font-size: 30px;
-}
-
 .zero {
+  @extend .branch;
   color: red;
   margin-top: 31%;
   margin-left: 25%;
-  font-size: 30px;
-  background-color: lightpink;
-  border-radius: 50%;
-  height: 200px;
-  width: 200px;
-  text-align: center;
-  padding-top: 75px;
-  position: fixed;
-  
-}
-
-.zero:hover {
-  background-color: lightslategrey;
 }
 
 .one {
+  @extend .branch;
   color: purple;
   margin-top: 10%;
   margin-left: 23%;
-  font-size: 30px;
-  background-color: lightpink;
-  border-radius: 50%;
-  height: 200px;
-  width: 200px;
-  text-align: center;
-  padding-top: 75px;
-  position: fixed;
-}
-
-.one:hover {
-  background-color: lightslategrey;
 }
 
 .two {
+  @extend .branch;
   color: black;
   margin-top: 1%;
   margin-left: 42%;
-  font-size: 30px;
-  background-color: lightpink;
-  border-radius: 50%;
-  height: 200px;
-  width: 200px;
-  text-align: center;
-  padding-top: 75px;
-  position: fixed;
-  
-}
-
-.two:hover {
-  background-color: lightslategrey;
 }
 
 .three {
+  @extend .branch;
   color: green;
-  float: right;
   margin-top: 11%;
   margin-left: 61%;
-  font-size: 30px;
-  background-color: lightpink;
-  border-radius: 50%;
-  height: 200px;
-  width: 200px;
-  text-align: center;
-  padding-top: 75px;
-  position: fixed;
-  
-}
-
-.three:hover {
-  background-color: lightslategrey;
 }
 
 .four {
+  @extend .branch;
   color: brown;
-  float: right;
   margin-top: 31%;
   margin-left: 58%;
-  font-size: 30px;
-  background-color: lightpink;
-  border-radius: 50%;
-  height: 200px;
-  width: 200px;
-  text-align: center;
-  padding-top: 75px;
-  position: fixed;
-  
-}
-
-.four:hover {
-  background-color: lightslategrey;
 }
