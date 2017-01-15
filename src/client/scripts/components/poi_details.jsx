@@ -60,6 +60,7 @@ class POIDetails extends Component {
         <div>
           <img
             role="presentation"
+            styleName="picDetail"
             src={`${selectedDetails.photos[0].getUrl({ maxWidth: 250, maxHeight: 250 })}`}
           />
         </div>
@@ -107,7 +108,9 @@ class POIDetails extends Component {
     return (
       <div>
         <div>
-          { image }
+          <div>
+            { image }
+          </div>
           <h3>{selectedDetails.name}</h3>
           { rating }
           <div styleName="detailBox">

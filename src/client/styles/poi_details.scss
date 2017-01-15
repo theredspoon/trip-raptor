@@ -6,7 +6,6 @@
   font-size: 14px;
   position: absolute;
   text-align: left;
-  padding: 12px;
   width: 50%;
   height: inherit;
 }
@@ -16,10 +15,13 @@ h4 {
 }
 
 .picDetail {
-  text-align: center;
+  display:table-cell;
+  vertical-align:middle;
+  margin:auto;
+  max-width: 244px;
+  padding-top: 5px;
 }
 
 .detailBox {
   padding-bottom: 3%;
 }
-
