@@ -5,19 +5,24 @@ body {
   padding:0;
 }
 .ask {
-  color: lightgrey;
-  font-size: 44px;
+  color: #FDFFFF;
+  font-size: 50px;
   text-align: center;
-  font-family: 'Pacifico', cursive;
+  font-family: 'Ubuntu Condensed', sans-serif;
+  margin-left: 4%;
+  margin-top: 10%;
 }
 .autoForm {
+  color: #FDFFFF;  
   font-size: 38px;
+  text-align: center;
   background-color: transparent;
   border: 0px solid;
-  color: lightgrey;
-  text-align: center;
   width: 50%;
   position: fixed;
+  &::placeholder {
+    color: #FDFFFF;
+  }
 }
 .autoForm:focus {
   outline:none;

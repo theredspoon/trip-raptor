@@ -60,6 +60,7 @@ class POIDetails extends Component {
         <div>
           <img
             role="presentation"
+            styleName="picDetail"
             src={`${selectedDetails.photos[0].getUrl({ maxWidth: 250, maxHeight: 250 })}`}
           />
         </div>
@@ -75,25 +76,25 @@ class POIDetails extends Component {
     }
 
     if (selectedDetails.formatted_phone_number) {
-      formattedPhoneNumber = <div>Phone Number: {selectedDetails.formatted_phone_number}</div>;
+      formattedPhoneNumber = <div><span className="glyphicon glyphicon-phone-alt" aria-hidden="true" />: {selectedDetails.formatted_phone_number}</div>;
     } else {
       formattedPhoneNumber = <div />;
     }
 
     if (selectedDetails.formatted_address) {
-      formattedAddress = <div>Address: {selectedDetails.formatted_address}</div>;
+      formattedAddress = <div><span className="glyphicon glyphicon-briefcase" aria-hidden="true" />: {selectedDetails.formatted_address}</div>;
     } else {
       formattedAddress = <div />;
     }
 
     if (selectedDetails.international_phone_number) {
-      internationalPhoneNumber = <div>International Phone Number: {selectedDetails.international_phone_number}</div>;
+      internationalPhoneNumber = <div><span className="glyphicon glyphicon-earphone" aria-hidden="true" />: {selectedDetails.international_phone_number}</div>;
     } else {
       internationalPhoneNumber = <div />;
     }
 
     if (selectedDetails.website) {
-      website = <div> Website: <a target="_blank" rel="noopener noreferrer" href={selectedDetails.website} > {selectedDetails.website} </a> </div>;
+      website = <div><span className="glyphicon glyphicon-globe" aria-hidden="true" /> : <span><a target="_blank" rel="noopener noreferrer" href={selectedDetails.website} > Website </a></span></div>;
     } else {
       website = <div />;
     }
@@ -107,10 +108,12 @@ class POIDetails extends Component {
     return (
       <div>
         <div>
-          { image }
+          <div>
+            { image }
+          </div>
           <h3>{selectedDetails.name}</h3>
           { rating }
-          <div>
+          <div styleName="detailBox">
             { formattedAddress }
             { formattedPhoneNumber }
             { internationalPhoneNumber }

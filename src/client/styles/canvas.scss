@@ -5,7 +5,7 @@
   text-align: center;
   position: fixed;
   font-size: 30px;
-  color: white;
+  color: #FDFFFF;
   z-index: -1;
   box-shadow: 5px 10px 30px black;
   text-stroke: 1px black;
@@ -23,14 +23,14 @@
   @extend .poi;
   height: 200px;
   width: 200px;
-  padding-top: 5.1%;
+  padding-top: 4%;
 }
 
 .branchRoot {
   @extend .poi;
   height: 180px;
   width: 180px;
-  padding-top: 5%;
+  padding-top: 3.5%;
   margin-top: 20%;
   margin-left: 42%;
 }

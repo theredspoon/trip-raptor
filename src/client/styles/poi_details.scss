@@ -6,26 +6,22 @@
   font-size: 14px;
   position: absolute;
   text-align: left;
-  padding: 12px;
   width: 50%;
   height: inherit;
-
 }
 
 h4 {
   color: darkblue;
 }
 
-a {
-  color: darkblue;
-}
-
 .picDetail {
-  text-align: center;
+  display:table-cell;
+  vertical-align:middle;
+  margin:auto;
+  max-width: 244px;
+  padding-top: 5px;
 }
 
-.addButton {
-  margin-left: 25px;
-  margin-bottom: 20px;
+.detailBox {
+  padding-bottom: 3%;
 }
-
