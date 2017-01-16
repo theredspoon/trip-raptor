@@ -20,10 +20,10 @@
   padding-top: 3.5%;
   margin-top: 20%;
   margin-left: 42%;
-  &:hover {
+}
+  .branchRoot:hover {
     background-image: linear-gradient(to bottom, #03b07b, #026e6b);
   }
-}
 
 .zero {
   background-image: linear-gradient(to bottom, #02855d, #028f8c);
@@ -46,10 +46,10 @@
   padding-top: 4%;
   margin-top: 31%;
   margin-left: 25%;
-  &:hover {
+}
+  .zero:hover {
     background-image: linear-gradient(to bottom, #03b07b, #026e6b);
   }
-}
 
 .one {
   background-image: linear-gradient(to bottom, #02855d, #028f8c);
@@ -72,10 +72,10 @@
   padding-top: 4%;
   margin-top: 10%;
   margin-left: 23%;
-  &:hover {
+}
+  .one:hover {
     background-image: linear-gradient(to bottom, #03b07b, #026e6b);
   }
-}
 
 .two {
   background-image: linear-gradient(to bottom, #02855d, #028f8c);
@@ -98,10 +98,10 @@
   padding-top: 4%;
   margin-top: 1%;
   margin-left: 42%;
-  &:hover {
+}
+  .two:hover {
     background-image: linear-gradient(to bottom, #03b07b, #026e6b);
   }
-}
 
 .three {
   background-image: linear-gradient(to bottom, #02855d, #028f8c);
@@ -124,10 +124,10 @@
   padding-top: 4%;
   margin-top: 11%;
   margin-left: 61%;
-  &:hover {
+}
+  .three:hover {
     background-image: linear-gradient(to bottom, #03b07b, #026e6b);
   }
-}
 
 .four {
   background-image: linear-gradient(to bottom, #02855d, #028f8c);
@@ -150,7 +150,7 @@
   padding-top: 4%;
   margin-top: 31%;
   margin-left: 58%;
-  &:hover {
+}
+  .four:hover {
     background-image: linear-gradient(to bottom, #03b07b, #026e6b);
   }
-}
