@@ -20,9 +20,9 @@ body {
   border: 0px solid;
   width: 50%;
   position: fixed;
-  &::placeholder {
+}
+.autoForm:placeholder {
     color: #FDFFFF;
-  }
 }
 .autoForm:focus {
   outline:none;
