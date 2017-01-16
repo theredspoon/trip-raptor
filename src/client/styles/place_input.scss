@@ -21,8 +21,17 @@ body {
   width: 50%;
   position: fixed;
 }
-.autoForm:placeholder {
-    color: #FDFFFF;
+.autoForm::-webkit-input-placeholder {
+color: #FDFFFF !important;
+}
+.autoForm:-moz-placeholder { /* Firefox 18- */
+color: #FDFFFF !important;  
+}
+.autoForm::-moz-placeholder {  /* Firefox 19+ */
+color: #FDFFFF !important;  
+}
+.autoForm:-ms-input-placeholder {  
+color: #FDFFFF !important;  
 }
 .autoForm:focus {
   outline:none;
